@@ -1,0 +1,28 @@
+{
+  "name": "mrself/extended-doctrine",
+  "autoload": {
+    "psr-4": {
+      "Mrself\\ExtendedDoctrine\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Mrself\\ExtendedDoctrine\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "doctrine/orm": "^2.6",
+    "icanboogie/inflector": "^1.4",
+    "symfony/serializer": "^4.1",
+    "doctrine/collections": "1.5.*",
+    "symfony/property-access": "^4.1",
+    "mrself/class-helper": "^0.0",
+    "mrself/util": "^1.6",
+    "mrself/sync": "^1.2",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.5",
+    "symfony/var-dumper": "^4.2"
+  }
+}
