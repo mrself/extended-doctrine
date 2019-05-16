@@ -4,6 +4,7 @@ namespace Mrself\DoctrineRepository;
 
 use Doctrine\ORM\EntityRepository;
 use Mrself\DoctrineRepository\Exception\InvalidEntitySourceException;
+use Mrself\ExtendedDoctrine\Entity\SluggableInterface;
 use Mrself\ExtendedDoctrine\Entity\SluggableTrait;
 
 /**
@@ -50,7 +51,7 @@ trait RepositoryTrait
 
     public function isSluggable()
     {
-        $traits = class_uses($this->getClassName());
-        return in_array(SluggableTrait::class, $traits);
+        $class = $this->getClassName();
+        return $class instanceof SluggableInterface;
     }
 }
