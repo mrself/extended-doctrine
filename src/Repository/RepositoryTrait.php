@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Mrself\DoctrineRepository;
+namespace Mrself\DoctrineRepository\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Mrself\DoctrineRepository\Exception\InvalidEntitySourceException;
