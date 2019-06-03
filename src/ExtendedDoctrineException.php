@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Mrself\DoctrineRepository\Repository;
+namespace Mrself\ExtendedDoctrine\Repository;
 
 class ExtendedDoctrineException extends \Exception
 {

@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Mrself\DoctrineRepository\Repository;
+namespace Mrself\ExtendedDoctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Mrself\DoctrineRepository\Repository\Exception\InvalidEntitySourceException;
+use Mrself\ExtendedDoctrine\Repository\Exception\InvalidEntitySourceException;
 use Mrself\ExtendedDoctrine\Entity\SluggableInterface;
 use Mrself\ExtendedDoctrine\Entity\SluggableTrait;
 

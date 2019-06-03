@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Mrself\DoctrineRepository\Repository\Exception;
+namespace Mrself\ExtendedDoctrine\Repository\Exception;
 
 class InvalidEntitySourceException extends RepositoryException
 {
