@@ -3,7 +3,7 @@
 namespace Mrself\DoctrineRepository\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Mrself\DoctrineRepository\Exception\InvalidEntitySourceException;
+use Mrself\DoctrineRepository\Repository\Exception\InvalidEntitySourceException;
 use Mrself\ExtendedDoctrine\Entity\SluggableInterface;
 use Mrself\ExtendedDoctrine\Entity\SluggableTrait;
 

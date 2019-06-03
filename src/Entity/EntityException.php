@@ -2,7 +2,7 @@
 
 namespace Mrself\ExtendedDoctrine\Entity;
 
-use Mrself\DoctrineRepository\ExtendedDoctrineException;
+use Mrself\DoctrineRepository\Repository\ExtendedDoctrineException;
 
 class EntityException extends ExtendedDoctrineException
 {
