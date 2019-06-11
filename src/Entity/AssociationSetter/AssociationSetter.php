@@ -83,19 +83,19 @@ class AssociationSetter
         $this->isManyToMany = $pluralized === $this->inverseName;
     }
 
-	/**
-	 * Defines associations collection property of entity
-	 */
+    /**
+     * Defines associations collection property of entity
+     */
     protected function defineCollection()
     {
         $methodGet = 'get' . ucfirst($this->associationName);
         $this->collection = $this->entity->$methodGet();
     }
 
-	/**
-	 * Removes associations from existing collection which are not in
-	 * new association values
-	 */
+    /**
+     * Removes associations from existing collection which are not in
+     * new association values
+     */
     protected function removeUnnecessaryAssociations()
     {
         $method = $this->getRemoveMethod();
@@ -106,11 +106,11 @@ class AssociationSetter
         }
     }
 
-	/**
-	 * Sets / adds association to existing entity property
-	 * @param * $association
-	 * @throws \Mrself\ExtendedDoctrine\Entity\AssociationSetter\InvalidAssociationException
-	 */
+    /**
+     * Sets / adds association to existing entity property
+     * @param * $association
+     * @throws \Mrself\ExtendedDoctrine\Entity\AssociationSetter\InvalidAssociationException
+     */
     protected function setSingle($association)
     {
         if ($this->collection->contains($association)) {
@@ -123,13 +123,13 @@ class AssociationSetter
         }
     }
 
-	/**
-	 * Returns method to call on association (inverse side) to set current
-	 * entity
-	 * @param * $association
-	 * @return string
-	 * @throws InvalidAssociationException
-	 */
+    /**
+     * Returns method to call on association (inverse side) to set current
+     * entity
+     * @param * $association
+     * @return string
+     * @throws InvalidAssociationException
+     */
     protected function getAddInverseMethod($association): string
     {
         if ($this->isManyToMany) {
@@ -148,10 +148,10 @@ class AssociationSetter
         return 'remove' . ucfirst($this->inflector->singularize($this->associationName));
     }
 
-	/**
-	 * Returns inverse association name
-	 * @return string
-	 */
+    /**
+     * Returns inverse association name
+     * @return string
+     */
     protected function getInverseName(): string
     {
         if ($this->inverseName) {
