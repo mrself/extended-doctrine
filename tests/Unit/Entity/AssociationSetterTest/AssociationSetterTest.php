@@ -414,7 +414,7 @@ class AssociationSetterTest extends TestCase
         $em->expects($this->once())
             ->method('remove');
         ContainerRegistry::get('Mrself\\ExtendedDoctrine')
-            ->set(EntityManager::class, $em);
+            ->set(EntityManager::class, $em, true);
 
         $owner->setRelativeItems([$association]);
         $owner->setRelativeItems([]);
@@ -426,5 +426,8 @@ class AssociationSetterTest extends TestCase
         parent::setUp();
         ContainerRegistry::reset();
         (new DoctrineProvider())->boot();
+        $em = $this->createMock(EntityManager::class);
+        ContainerRegistry::get('Mrself\\ExtendedDoctrine')
+            ->set(EntityManager::class, $em);
     }
 }
