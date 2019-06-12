@@ -2,21 +2,27 @@
 
 namespace Mrself\ExtendedDoctrine\Entity\AssociationSetter;
 
+use Doctrine\ORM\EntityManager;
 use ICanBoogie\Inflector;
 use Mrself\ExtendedDoctrine\Entity\EntityInterface;
 use Mrself\ExtendedDoctrine\Entity\EntityTrait;
 use Mrself\ClassHelper\ClassHelper;
 use Doctrine\Common\Collections\Collection;
+use Mrself\Options\Annotation\Option;
+use Mrself\Options\WithOptionsTrait;
 
 class AssociationSetter
 {
+    use WithOptionsTrait;
 
     /**
+     * @Option()
      * @var EntityTrait|EntityInterface
      */
     protected $entity;
 
     /**
+     * @Option()
      * @var array
      */
     protected $associations;
@@ -28,17 +34,20 @@ class AssociationSetter
     protected $collection;
 
     /**
+     * @Option()
      * Name of inverse association
      * @var string
      */
     protected $inverseName;
 
     /**
+     * @Option()
      * @var string
      */
     protected $associationName;
 
     /**
+     * @Option()
      * @var Inflector
      */
     protected $inflector;
@@ -49,6 +58,18 @@ class AssociationSetter
     protected $isManyToMany;
 
     /**
+     * @Option()
+     * @var bool
+     */
+    protected $removeAssociation = false;
+
+    /**
+     * @Option()
+     * @var EntityManager
+     */
+    protected $em;
+
+    /**
      * Runs setter with specific parameters
      * @param EntityInterface $entity
      * @param array $associations
@@ -57,19 +78,30 @@ class AssociationSetter
      */
     public static function runWith(EntityInterface $entity, array $associations, string $inverseName, string $associationName)
     {
-        $self = new static();
-        $self->inflector = Inflector::get();
-        $self->entity = $entity;
-        $self->associations = $associations;
-        $self->inverseName = ucfirst($inverseName);
-        $self->associationName = $associationName;
+        $self = static::make([
+            'entity' => $entity,
+            'associations' => $associations,
+            'inverseName' => $inverseName,
+            'associationName' => $associationName
+        ]);
         $self->run();
     }
 
-	/**
-	 * Runs setting
-	 */
-    protected function run()
+    protected function getOptionsSchema()
+    {
+        return [
+            'normalizers' => [
+                'inverseName' => function (string $name) {
+                    return ucfirst($name);
+                }
+            ]
+        ];
+    }
+
+    /**
+     * Runs setting
+     */
+    public function run()
     {
         $this->defineAssociationType();
         $this->defineCollection();
@@ -102,6 +134,9 @@ class AssociationSetter
         foreach ($this->collection as $item) {
             if (!in_array($item, $this->associations, true)) {
                 $this->entity->$method($item);
+                if ($this->removeAssociation) {
+                    $this->em->remove($item);
+                }
             }
         }
     }

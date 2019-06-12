@@ -2,14 +2,23 @@
 
 namespace Mrself\ExtendedDoctrine\Tests\Unit\Entity\AssociationSetterTest;
 
+use Doctrine\ORM\EntityManager;
+use Mrself\Container\Registry\ContainerRegistry;
+use Mrself\ExtendedDoctrine\DoctrineProvider;
 use Mrself\ExtendedDoctrine\Entity\AssociationSetter\AssociationSetter;
 use Mrself\ExtendedDoctrine\Entity\EntityInterface;
 use Mrself\ExtendedDoctrine\Entity\EntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class AssociationSetterTest extends TestCase
 {
+    /**
+     * @var EntityManager|MockObject
+     */
+    protected $em;
+
     public function testItAddItemToRelativeCollection()
     {
         $owner = new class implements EntityInterface {
@@ -351,5 +360,71 @@ class AssociationSetterTest extends TestCase
         $owner->setRelativeItems([$association]);
 
         $this->assertTrue($association->isCalled);
+    }
+
+    public function testRemoveAssociation()
+    {
+        $owner = new class implements EntityInterface {
+            use EntityTrait;
+
+            var $relativeItems;
+
+            function __construct()
+            {
+                $this->relativeItems = new ArrayCollection();
+            }
+
+            function setRelativeItems($values)
+            {
+                AssociationSetter::make([
+                    'entity' => $this,
+                    'associations' => $values,
+                    'inverseName' => 'target',
+                    'associationName' => 'relativeItems',
+                    'removeAssociation' => true
+                ])->run();
+            }
+
+            function removeRelativeItem($item)
+            {
+
+            }
+
+            function getRelativeItems()
+            {
+                return $this->relativeItems;
+            }
+        };
+
+        $association = new class {
+            function setTarget($target) {
+
+            }
+            function addTarget($target) {
+
+            }
+            function removeTarget($target) {
+
+            }
+        };
+        $em = $this->getMockBuilder(EntityManager::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['remove'])
+            ->getMock();
+        $em->expects($this->once())
+            ->method('remove');
+        ContainerRegistry::get('Mrself\\ExtendedDoctrine')
+            ->set(EntityManager::class, $em);
+
+        $owner->setRelativeItems([$association]);
+        $owner->setRelativeItems([]);
+
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        ContainerRegistry::reset();
+        (new DoctrineProvider())->boot();
     }
 }
