@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0998749b0ba68543f7d9e13a88e1220a",
+    "content-hash": "d0aec2ca41ea8a8ecee5c6bbc450b85a",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -578,20 +578,23 @@
         },
         {
             "name": "doctrine/lexer",
-            "version": "v1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c"
+                "reference": "1febd6c3ef84253d7c815bed85fc622ad207a9f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
-                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/1febd6c3ef84253d7c815bed85fc622ad207a9f8",
+                "reference": "1febd6c3ef84253d7c815bed85fc622ad207a9f8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.5"
             },
             "type": "library",
             "extra": {
@@ -600,8 +603,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\Lexer\\": "lib/"
+                "psr-4": {
+                    "Doctrine\\Common\\Lexer\\": "lib/Doctrine/Common/Lexer"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -622,13 +625,16 @@
                     "email": "schmittjoh@gmail.com"
                 }
             ],
-            "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
-            "homepage": "http://www.doctrine-project.org",
+            "description": "PHP Doctrine Lexer parser library that can be used in Top-Down, Recursive Descent Parsers.",
+            "homepage": "https://www.doctrine-project.org/projects/lexer.html",
             "keywords": [
+                "annotations",
+                "docblock",
                 "lexer",
-                "parser"
+                "parser",
+                "php"
             ],
-            "time": "2014-09-09T13:34:57+00:00"
+            "time": "2019-06-08T11:03:04+00:00"
         },
         {
             "name": "doctrine/orm",
@@ -946,19 +952,20 @@
         },
         {
             "name": "mrself/container",
-            "version": "v1.3.0",
+            "version": "v1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-container.git",
-                "reference": "b6777b253dcfea288a0483d86fed0e11f1d3e0cc"
+                "reference": "20a1a6d56a126188a32ad083d516b84e4f2c78a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-container/zipball/b6777b253dcfea288a0483d86fed0e11f1d3e0cc",
-                "reference": "b6777b253dcfea288a0483d86fed0e11f1d3e0cc",
+                "url": "https://api.github.com/repos/mrself/php-container/zipball/20a1a6d56a126188a32ad083d516b84e4f2c78a5",
+                "reference": "20a1a6d56a126188a32ad083d516b84e4f2c78a5",
                 "shasum": ""
             },
             "require": {
+                "mrself/options": "^2.8",
                 "php": "^7.2"
             },
             "require-dev": {
@@ -972,25 +979,57 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-02-03T15:07:19+00:00"
+            "time": "2019-06-13T16:55:54+00:00"
         },
         {
-            "name": "mrself/options",
-            "version": "v2.8.3",
+            "name": "mrself/data-transformers",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mrself/php-options.git",
-                "reference": "fee44fad2e180dd1d227b3add440fc268c153861"
+                "url": "https://github.com/mrself/php-data-transformers.git",
+                "reference": "28bdfc0ac228023b6b97d7659567b3c44a46929f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-options/zipball/fee44fad2e180dd1d227b3add440fc268c153861",
-                "reference": "fee44fad2e180dd1d227b3add440fc268c153861",
+                "url": "https://api.github.com/repos/mrself/php-data-transformers/zipball/28bdfc0ac228023b6b97d7659567b3c44a46929f",
+                "reference": "28bdfc0ac228023b6b97d7659567b3c44a46929f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "mrself/options": "^2.7",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.5",
+                "symfony/var-dumper": "^4.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mrself\\DataTransformers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2019-06-13T07:27:03+00:00"
+        },
+        {
+            "name": "mrself/options",
+            "version": "v2.8.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mrself/php-options.git",
+                "reference": "4cebf4035585ed3036e690befdb87d192c2de4cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mrself/php-options/zipball/4cebf4035585ed3036e690befdb87d192c2de4cb",
+                "reference": "4cebf4035585ed3036e690befdb87d192c2de4cb",
                 "shasum": ""
             },
             "require": {
                 "doctrine/annotations": "^1.6",
-                "mrself/container": "1.3.0",
+                "mrself/container": "^1.4.1",
                 "mrself/util": "^1.5.0",
                 "php-di/phpdoc-reader": "^2.1",
                 "symfony/options-resolver": "^4.2"
@@ -1006,25 +1045,27 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-06-04T05:14:27+00:00"
+            "time": "2019-06-13T16:41:27+00:00"
         },
         {
             "name": "mrself/property",
-            "version": "v1.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-property.git",
-                "reference": "70fb528fa45f56c7c7066d4100f789a92a088cc1"
+                "reference": "acbd775b3a0a7cf7fc285f04348e97d80c6f621d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-property/zipball/70fb528fa45f56c7c7066d4100f789a92a088cc1",
-                "reference": "70fb528fa45f56c7c7066d4100f789a92a088cc1",
+                "url": "https://api.github.com/repos/mrself/php-property/zipball/acbd775b3a0a7cf7fc285f04348e97d80c6f621d",
+                "reference": "acbd775b3a0a7cf7fc285f04348e97d80c6f621d",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "icanboogie/inflector": "^1.4",
+                "mrself/data-transformers": "^1.0",
+                "mrself/options": "^2.7",
                 "php": "^7.2"
             },
             "require-dev": {
@@ -1038,26 +1079,27 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-05-01T09:52:11+00:00"
+            "time": "2019-05-26T13:44:51+00:00"
         },
         {
             "name": "mrself/sync",
-            "version": "v1.2.2",
+            "version": "v1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-sync.git",
-                "reference": "a722b78a5c67993bd81a0ccc0b46ffdbe8767bc1"
+                "reference": "1555a81b9cca08373ae5b140f4d0985b9a6175de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-sync/zipball/a722b78a5c67993bd81a0ccc0b46ffdbe8767bc1",
-                "reference": "a722b78a5c67993bd81a0ccc0b46ffdbe8767bc1",
+                "url": "https://api.github.com/repos/mrself/php-sync/zipball/1555a81b9cca08373ae5b140f4d0985b9a6175de",
+                "reference": "1555a81b9cca08373ae5b140f4d0985b9a6175de",
                 "shasum": ""
             },
             "require": {
                 "icanboogie/inflector": "^1.4",
-                "mrself/options": "^2.5",
-                "mrself/property": "^1.3",
+                "mrself/data-transformers": "^1.1",
+                "mrself/options": "^2.7.1",
+                "mrself/property": "^1.4",
                 "symfony/validator": "^4.2"
             },
             "require-dev": {
@@ -1077,7 +1119,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-05-01T09:55:51+00:00"
+            "time": "2019-06-13T10:00:59+00:00"
         },
         {
             "name": "mrself/util",
@@ -1221,20 +1263,27 @@
         },
         {
             "name": "symfony/contracts",
-            "version": "v1.1.0",
+            "version": "v1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/contracts.git",
-                "reference": "d3636025e8253c6144358ec0a62773cae588395b"
+                "reference": "2d19b12caccbd80cf0c85624dc87b7021a0df1d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/contracts/zipball/d3636025e8253c6144358ec0a62773cae588395b",
-                "reference": "d3636025e8253c6144358ec0a62773cae588395b",
+                "url": "https://api.github.com/repos/symfony/contracts/zipball/2d19b12caccbd80cf0c85624dc87b7021a0df1d5",
+                "reference": "2d19b12caccbd80cf0c85624dc87b7021a0df1d5",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3"
+            },
+            "replace": {
+                "symfony/cache-contracts": "self.version",
+                "symfony/event-dispatcher-contracts": "self.version",
+                "symfony/http-client-contracts": "self.version",
+                "symfony/service-contracts": "self.version",
+                "symfony/translation-contracts": "self.version"
             },
             "require-dev": {
                 "psr/cache": "^1.0",
@@ -1244,11 +1293,12 @@
             "suggest": {
                 "psr/cache": "When using the Cache contracts",
                 "psr/container": "When using the Service contracts",
-                "symfony/cache-contracts-implementation": "",
+                "psr/event-dispatcher": "When using the EventDispatcher contracts",
+                "symfony/cache-implementation": "",
                 "symfony/event-dispatcher-implementation": "",
-                "symfony/http-client-contracts-implementation": "",
-                "symfony/service-contracts-implementation": "",
-                "symfony/translation-contracts-implementation": ""
+                "symfony/http-client-implementation": "",
+                "symfony/service-implementation": "",
+                "symfony/translation-implementation": ""
             },
             "type": "library",
             "extra": {
@@ -1288,7 +1338,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-04-27T14:29:50+00:00"
+            "time": "2019-06-05T13:28:50+00:00"
         },
         {
             "name": "symfony/inflector",
@@ -1350,16 +1400,16 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v4.2.8",
+            "version": "v4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "fd4a5f27b7cd085b489247b9890ebca9f3e10044"
+                "reference": "914e0edcb7cd0c9f494bc023b1d47534f4542332"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/fd4a5f27b7cd085b489247b9890ebca9f3e10044",
-                "reference": "fd4a5f27b7cd085b489247b9890ebca9f3e10044",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/914e0edcb7cd0c9f494bc023b1d47534f4542332",
+                "reference": "914e0edcb7cd0c9f494bc023b1d47534f4542332",
                 "shasum": ""
             },
             "require": {
@@ -1368,7 +1418,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.3-dev"
                 }
             },
             "autoload": {
@@ -1400,7 +1450,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2019-04-10T16:20:36+00:00"
+            "time": "2019-05-10T05:38:46+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1668,29 +1718,29 @@
         },
         {
             "name": "symfony/validator",
-            "version": "v4.2.8",
+            "version": "v4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "0d83ae4c4c5418522f05a25e4597719043b45f40"
+                "reference": "ea74d2843fd8a9f2d4800136c985d13da586a405"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/0d83ae4c4c5418522f05a25e4597719043b45f40",
-                "reference": "0d83ae4c4c5418522f05a25e4597719043b45f40",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/ea74d2843fd8a9f2d4800136c985d13da586a405",
+                "reference": "ea74d2843fd8a9f2d4800136c985d13da586a405",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3",
-                "symfony/contracts": "^1.0.2",
                 "symfony/polyfill-ctype": "~1.8",
-                "symfony/polyfill-mbstring": "~1.0"
+                "symfony/polyfill-mbstring": "~1.0",
+                "symfony/translation-contracts": "^1.1"
             },
             "conflict": {
                 "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0",
                 "symfony/dependency-injection": "<3.4",
                 "symfony/http-kernel": "<3.4",
-                "symfony/intl": "<4.1",
+                "symfony/intl": "<4.3",
                 "symfony/translation": "<4.2",
                 "symfony/yaml": "<3.4"
             },
@@ -1702,10 +1752,12 @@
                 "symfony/config": "~3.4|~4.0",
                 "symfony/dependency-injection": "~3.4|~4.0",
                 "symfony/expression-language": "~3.4|~4.0",
+                "symfony/http-client": "^4.3",
                 "symfony/http-foundation": "~4.1",
                 "symfony/http-kernel": "~3.4|~4.0",
-                "symfony/intl": "~4.1",
+                "symfony/intl": "^4.3",
                 "symfony/property-access": "~3.4|~4.0",
+                "symfony/property-info": "~3.4|~4.0",
                 "symfony/translation": "~4.2",
                 "symfony/var-dumper": "~3.4|~4.0",
                 "symfony/yaml": "~3.4|~4.0"
@@ -1720,13 +1772,14 @@
                 "symfony/http-foundation": "",
                 "symfony/intl": "",
                 "symfony/property-access": "For accessing properties within comparison constraints",
+                "symfony/property-info": "To automatically add NotNull and Type constraints",
                 "symfony/translation": "For translating validation errors.",
                 "symfony/yaml": ""
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "4.3-dev"
                 }
             },
             "autoload": {
@@ -1753,7 +1806,7 @@
             ],
             "description": "Symfony Validator Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-01T05:55:04+00:00"
+            "time": "2019-06-03T20:27:40+00:00"
         }
     ],
     "packages-dev": [
