@@ -433,6 +433,53 @@ class AssociationSetterTest extends TestCase
         $this->assertEquals(1, $owner->getRelativeItems()->count());
     }
 
+    public function testItUsesCollectionIfInverseRemoveMethodDoesNotExist()
+    {
+        $owner = new class implements EntityInterface {
+            use EntityTrait;
+
+            var $relativeItems;
+
+            function __construct()
+            {
+                $this->relativeItems = new ArrayCollection();
+            }
+
+            function setRelativeItems($values)
+            {
+                AssociationSetter::runWith(
+                    $this,
+                    $values,
+                    'targets',
+                    'relativeItems'
+                );
+            }
+
+            function getRelativeItems()
+            {
+                return $this->relativeItems;
+            }
+        };
+
+        $association = new class {
+            public $targets;
+
+            function __construct()
+            {
+                $this->targets = new ArrayCollection();
+            }
+
+            public function getTargets(): ArrayCollection {
+                return $this->targets;
+            }
+        };
+        $owner->setRelativeItems([$association]);
+        $owner->setRelativeItems([]);
+
+        $this->assertEquals(0, $association->getTargets()->count());
+        $this->assertEquals(0, $owner->getRelativeItems()->count());
+    }
+
     protected function setUp()
     {
         parent::setUp();

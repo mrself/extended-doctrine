@@ -133,11 +133,24 @@ class AssociationSetter
         $method = $this->getRemoveMethod();
         foreach ($this->collection as $item) {
             if (!in_array($item, $this->associations, true)) {
-                $this->entity->$method($item);
+                if (method_exists($this->entity, $method)) {
+                    $this->entity->$method($item);
+                } else {
+                    $item->{'get' . $this->inverseName}()
+                        ->removeElement($this->entity);
+                    $this->removeAssociationItem($item);
+                }
                 if ($this->removeAssociation) {
                     $this->em->remove($item);
                 }
             }
+        }
+    }
+
+    protected function removeAssociationItem($item)
+    {
+        if ($this->collection->contains($item)) {
+            $this->collection->removeElement($item);
         }
     }
 
