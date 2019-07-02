@@ -152,7 +152,13 @@ class AssociationSetter
             return;
         }
 
-        $association->{$this->getAddInverseMethod($association)}($this->entity);
+        $method = $this->getAddInverseMethod($association);
+        if (method_exists($association, $method)) {
+            $association->$method($this->entity);
+        } else {
+            $association->{'get' . $this->inverseName}()
+                ->add($this->entity);
+        }
         if (!$this->collection->contains($association)) {
             $this->collection->add($association);
         }
@@ -172,10 +178,7 @@ class AssociationSetter
         } else {
             $method = 'set' . $this->inverseName;
         }
-        if (method_exists($association, $method)) {
-            return $method;
-        }
-        throw new InvalidAssociationException($this->associationName, $this->inverseName);
+        return $method;
     }
 
     protected function getRemoveMethod()

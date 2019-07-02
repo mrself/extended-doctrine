@@ -246,40 +246,6 @@ class AssociationSetterTest extends TestCase
 
         $this->assertTrue($owner->isRemoveCalled);
     }
-    /**
-     * @expectedException \Mrself\ExtendedDoctrine\Entity\AssociationSetter\InvalidAssociationException
-     */
-    public function testItThrowsExceptionIfThereIsNoInverseMethod()
-    {
-        $owner = new class implements EntityInterface {
-            use EntityTrait;
-
-            var $relativeItems;
-
-            function __construct()
-            {
-                $this->relativeItems = new ArrayCollection();
-            }
-
-            function setRelativeItems($values)
-            {
-                AssociationSetter::runWith(
-                    $this,
-                    $values,
-                    'target',
-                    'relativeItems'
-                );
-            }
-
-            function getRelativeItems()
-            {
-                return $this->relativeItems;
-            }
-        };
-
-        $association = new class {};
-        $owner->setRelativeItems([$association]);
-    }
 
     public function testItCallsAddAsInverseMethod()
     {
@@ -419,6 +385,51 @@ class AssociationSetterTest extends TestCase
         $owner->setRelativeItems([$association]);
         $owner->setRelativeItems([]);
 
+    }
+
+    public function testItUsesCollectionIfInverseAddMethodDoesNotExist()
+    {
+        $owner = new class implements EntityInterface {
+            use EntityTrait;
+
+            var $relativeItems;
+
+            function __construct()
+            {
+                $this->relativeItems = new ArrayCollection();
+            }
+
+            function setRelativeItems($values)
+            {
+                AssociationSetter::runWith(
+                    $this,
+                    $values,
+                    'targets',
+                    'relativeItems'
+                );
+            }
+
+            function getRelativeItems()
+            {
+                return $this->relativeItems;
+            }
+        };
+
+        $association = new class {
+            public $targets;
+
+            function __construct()
+            {
+                $this->targets = new ArrayCollection();
+            }
+
+            public function getTargets(): ArrayCollection {
+                return $this->targets;
+            }
+        };
+        $owner->setRelativeItems([$association]);
+
+        $this->assertEquals(1, $association->getTargets()->count());
     }
 
     protected function setUp()
