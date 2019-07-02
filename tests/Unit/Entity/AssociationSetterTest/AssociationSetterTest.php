@@ -430,6 +430,7 @@ class AssociationSetterTest extends TestCase
         $owner->setRelativeItems([$association]);
 
         $this->assertEquals(1, $association->getTargets()->count());
+        $this->assertEquals(1, $owner->getRelativeItems()->count());
     }
 
     protected function setUp()
