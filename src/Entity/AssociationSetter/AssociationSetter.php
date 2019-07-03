@@ -136,14 +136,23 @@ class AssociationSetter
                 if (method_exists($this->entity, $method)) {
                     $this->entity->$method($item);
                 } else {
-                    $item->{'get' . $this->inverseName}()
-                        ->removeElement($this->entity);
+                    $this->unsetEntityFromAssociation($item);
                     $this->removeAssociationItem($item);
                 }
                 if ($this->removeAssociation) {
                     $this->em->remove($item);
                 }
             }
+        }
+    }
+
+    protected function unsetEntityFromAssociation($association)
+    {
+        if ($this->isManyToMany) {
+            $association->{'get' . $this->inverseName}()
+                ->removeElement($this->entity);
+        } else {
+            $association->{'set' . $this->inverseName}(null);
         }
     }
 

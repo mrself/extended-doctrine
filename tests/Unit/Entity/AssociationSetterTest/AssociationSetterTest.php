@@ -480,6 +480,46 @@ class AssociationSetterTest extends TestCase
         $this->assertEquals(0, $owner->getRelativeItems()->count());
     }
 
+    public function testItSetsEntityAsNullInAssociationForManyToOneRelation()
+    {
+        $owner = new class implements EntityInterface {
+            use EntityTrait;
+
+            var $relativeItems;
+
+            function __construct()
+            {
+                $this->relativeItems = new ArrayCollection();
+            }
+
+            function setRelativeItems($values)
+            {
+                AssociationSetter::runWith(
+                    $this,
+                    $values,
+                    'target',
+                    'relativeItems'
+                );
+            }
+
+            function getRelativeItems()
+            {
+                return $this->relativeItems;
+            }
+        };
+
+        $association = new class {
+            var $flag = false;
+            function setTarget($target) {
+                $this->flag = $target;
+            }
+        };
+        $owner->setRelativeItems([$association]);
+        $owner->setRelativeItems([]);
+
+        $this->assertNull($association->flag);
+    }
+
     protected function setUp()
     {
         parent::setUp();
