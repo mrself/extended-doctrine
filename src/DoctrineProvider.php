@@ -11,7 +11,7 @@ class DoctrineProvider
     public function boot()
     {
         $container = Container::make([
-            'fallbackContainer' => 'App'
+            'fallbackContainers' => ['App']
         ]);
         ContainerRegistry::add('Mrself\\ExtendedDoctrine', $container);
         $container->set(Inflector::class, Inflector::get());
