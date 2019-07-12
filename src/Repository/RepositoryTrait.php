@@ -20,6 +20,7 @@ trait RepositoryTrait
      * @param $source
      * @return object|null
      * @throws InvalidEntitySourceException
+     * @throws \ReflectionException
      */
     public function toEntity($source)
     {
@@ -40,6 +41,11 @@ trait RepositoryTrait
         return $source instanceof $class;
     }
 
+    /**
+     * @param $id
+     * @return object|null
+     * @throws \ReflectionException
+     */
     public function findByAppId($id)
     {
         if ($this->isSluggable()) {
@@ -49,9 +55,14 @@ trait RepositoryTrait
         return $this->find($id);
     }
 
+    /**
+     * @return bool
+     * @throws \ReflectionException
+     */
     public function isSluggable()
     {
         $class = $this->getClassName();
-        return $class instanceof SluggableInterface;
+        $reflection = new \ReflectionClass($class);
+        return $reflection->implementsInterface(SluggableInterface::class);
     }
 }
