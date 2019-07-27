@@ -80,6 +80,8 @@ class ToArrayTest extends TestCase
         };
 
         $entity2 = new class implements EntityInterface {
+            use EntityTrait;
+
             protected $field2 = 'value2';
 
             public $entity1;
