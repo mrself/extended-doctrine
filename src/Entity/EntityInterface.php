@@ -4,4 +4,8 @@ namespace Mrself\ExtendedDoctrine\Entity;
 
 interface EntityInterface
 {
+    /**
+     * @return string|int
+     */
+    public function getId();
 }
