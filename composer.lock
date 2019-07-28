@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1ed17c015fb0d4399d2234924924ffc",
+    "content-hash": "420e5e91010e9aa4e6d7094483e612fd",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -1407,16 +1407,16 @@
         },
         {
             "name": "mrself/sync",
-            "version": "v1.3.2",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-sync.git",
-                "reference": "1555a81b9cca08373ae5b140f4d0985b9a6175de"
+                "reference": "c61c04afe493b1e8c5d9e6619dc0f6ecc3847543"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-sync/zipball/1555a81b9cca08373ae5b140f4d0985b9a6175de",
-                "reference": "1555a81b9cca08373ae5b140f4d0985b9a6175de",
+                "url": "https://api.github.com/repos/mrself/php-sync/zipball/c61c04afe493b1e8c5d9e6619dc0f6ecc3847543",
+                "reference": "c61c04afe493b1e8c5d9e6619dc0f6ecc3847543",
                 "shasum": ""
             },
             "require": {
@@ -1443,7 +1443,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-06-13T10:00:59+00:00"
+            "time": "2019-07-27T13:20:10+00:00"
         },
         {
             "name": "mrself/util",

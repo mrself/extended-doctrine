@@ -7,10 +7,12 @@ use Doctrine\ORM\EntityManager;
 use Mrself\ExtendedDoctrine\Entity\EntityInterface;
 use Mrself\ExtendedDoctrine\Entity\EntityTrait;
 use Mrself\ExtendedDoctrine\Entity\SluggableTrait;
+use Mrself\ExtendedDoctrine\Entity\SyncFromArray;
 use Mrself\ExtendedDoctrine\Repository\AbstractRepository;
 use Mrself\NamespaceHelper\NamespaceHelper;
 use Mrself\Options\Annotation\Option;
 use Mrself\Options\WithOptionsTrait;
+use Mrself\Sync\Sync;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -72,6 +74,12 @@ abstract class AbstractModel
      */
     protected $stringNamespace;
 
+    /**
+     * @Option(required=false)
+     * @var string
+     */
+    protected $fromArraySyncClass;
+
     public function __construct()
     {
         $this->defineEntityClass();
@@ -92,12 +100,18 @@ abstract class AbstractModel
     /**
      * @param array|EntityInterface $data Array to create entity or entity itself
      * @return static
-     * @throws Entity\InvalidArrayNameException
+     * @throws \Mrself\Container\Registry\NotFoundException
+     * @throws \Mrself\Property\EmptyPathException
+     * @throws \Mrself\Property\InvalidSourceException
+     * @throws \Mrself\Property\InvalidTargetException
+     * @throws \Mrself\Property\NonValuePathException
+     * @throws \Mrself\Property\NonexistentKeyException
+     * @throws \Mrself\Sync\ValidationException
      */
     public function from($data = [])
     {
         if (is_array($data)) {
-            $this->arrayToEntity($data);
+            $this->fromArray($data);
         } elseif ($this->isEntity($data)) {
             $this->entity = $data;
         }
@@ -168,16 +182,40 @@ abstract class AbstractModel
 
     /**
      * @param array $data
-     * @throws Entity\InvalidArrayNameException
+     * @param string|null $syncClass
+     * @throws \Mrself\Container\Registry\NotFoundException
+     * @throws \Mrself\Property\EmptyPathException
+     * @throws \Mrself\Property\InvalidSourceException
+     * @throws \Mrself\Property\InvalidTargetException
+     * @throws \Mrself\Property\NonValuePathException
+     * @throws \Mrself\Property\NonexistentKeyException
+     * @throws \Mrself\Sync\ValidationException
      */
-    protected function arrayToEntity(array $data)
+    public function fromArray(array $data, string $syncClass = null)
     {
-        if ($this->entity) {
-            $this->entity->fromArray($data);
-        } else {
+        if (!$this->entity) {
             $entityClass = $this->entityClass;
-            $this->entity = $entityClass::sfromArray($data);
+            $this->entity = new $entityClass;
         }
+
+        $syncClass = $this->defineFromArraySyncClass($syncClass);
+        /** @var Sync $syncClass */
+        $syncClass::make([
+            'source' => $data,
+            'target' => $this->entity
+        ])->sync();
+    }
+
+    private function defineFromArraySyncClass(string $syncClass = null)
+    {
+        if ($syncClass) {
+            return $syncClass;
+        }
+
+        if ($this->fromArraySyncClass) {
+            return $this->fromArraySyncClass;
+        }
+        return SyncFromArray::class;
     }
 
     public function getEntity(): EntityInterface
