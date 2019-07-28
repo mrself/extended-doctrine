@@ -125,11 +125,17 @@ abstract class AbstractModel
     }
 
     /**
-     * @param null $data
+     * @param array|EntityInterface|null $data
      * @return $this
-     * @throws Entity\InvalidArrayNameException
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Mrself\Container\Registry\NotFoundException
+     * @throws \Mrself\Property\EmptyPathException
+     * @throws \Mrself\Property\InvalidSourceException
+     * @throws \Mrself\Property\InvalidTargetException
+     * @throws \Mrself\Property\NonValuePathException
+     * @throws \Mrself\Property\NonexistentKeyException
+     * @throws \Mrself\Sync\ValidationException
      */
     public function save($data = null)
     {
