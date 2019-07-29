@@ -2,9 +2,10 @@
 
 namespace Mrself\ExtendedDoctrine\Tests\Functional\Model;
 
-use Mrself\ExtendedDoctrine\AbstractModel;
+use Mrself\ExtendedDoctrine\Model\AbstractModel;
 
-class ModelMock extends AbstractModel {
+class ModelMock extends AbstractModel
+{
 
     public function getOptionsContainerNamespace(): string
     {

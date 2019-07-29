@@ -2,7 +2,7 @@
 
 namespace Mrself\ExtendedDoctrine\Tests\Functional\Model\ModelTest;
 
-use Mrself\ExtendedDoctrine\AbstractModel;
+use Mrself\ExtendedDoctrine\Model\AbstractModel;
 use Mrself\ExtendedDoctrine\Tests\Functional\Model\ModelMock;
 use Mrself\ExtendedDoctrine\Tests\Functional\Model\ModelTestCase;
 use Mrself\Options\Annotation\Option;

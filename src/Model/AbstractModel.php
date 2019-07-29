@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Mrself\ExtendedDoctrine;
+namespace Mrself\ExtendedDoctrine\Model;
 
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManager;
@@ -8,6 +8,8 @@ use Mrself\ExtendedDoctrine\Entity\EntityInterface;
 use Mrself\ExtendedDoctrine\Entity\EntityTrait;
 use Mrself\ExtendedDoctrine\Entity\SluggableTrait;
 use Mrself\ExtendedDoctrine\Entity\SyncFromArray;
+use Mrself\ExtendedDoctrine\Model\Event\AbstractEvent;
+use Mrself\ExtendedDoctrine\Model\Event\UpdatedEvent;
 use Mrself\ExtendedDoctrine\Repository\AbstractRepository;
 use Mrself\NamespaceHelper\NamespaceHelper;
 use Mrself\Options\Annotation\Option;
@@ -144,10 +146,16 @@ abstract class AbstractModel
         $this->beforeSave();
         if ($this->entity->getId()) {
             $this->repository->update($this->entity);
+            $this->dispatchEvent('updated', UpdatedEvent::make([
+                'model' => $this
+            ]));
         } else {
             $this->beforeCreate();
             $this->repository->create($this->entity);
             $this->onCreate();
+            $this->dispatchEvent('created', UpdatedEvent::make([
+                'model' => $this
+            ]));
         }
         $this->onSave();
         return $this;
@@ -185,6 +193,9 @@ abstract class AbstractModel
     public function delete()
     {
         $this->repository->delete($this->entity);
+        $this->dispatchEvent('deleted', UpdatedEvent::make([
+            'model' => $this
+        ]));
     }
 
     /**
@@ -249,6 +260,14 @@ abstract class AbstractModel
     {
         $targetId = is_array($target) ? $target['id'] : $target->getId();
         return $this->entity->getId() === $targetId;
+    }
+
+    protected function dispatchEvent(string $name, AbstractEvent $event)
+    {
+        $namespace = $this->namespace->clone()
+            ->append($name)
+            ->toDotted();
+        $this->eventDispatcher->dispatch($event, $namespace);
     }
 
     protected function onOptionsResolve()
