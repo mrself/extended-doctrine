@@ -22,7 +22,9 @@ class ModelTestCase extends TestCase
         ContainerRegistry::reset();
         $container = Container::make([
             'services' => [
-                ValidatorInterface::class => Validation::createValidator(),
+                ValidatorInterface::class => Validation::createValidatorBuilder()
+                    ->enableAnnotationMapping()
+                    ->getValidator(),
                 EventDispatcherInterface::class => new EventDispatcher(),
                 Slugify::class => new Slugify(),
                 EntityManager::class => $this->createMock(EntityManager::class),

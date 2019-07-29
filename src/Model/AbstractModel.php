@@ -129,6 +129,7 @@ abstract class AbstractModel
 
     /**
      * @param array|EntityInterface|null $data
+     * @param bool $ignoreValidation
      * @return $this
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -140,10 +141,13 @@ abstract class AbstractModel
      * @throws \Mrself\Property\NonexistentKeyException
      * @throws \Mrself\Sync\ValidationException
      */
-    public function save($data = null)
+    public function save($data = null, bool $ignoreValidation = false)
     {
         $this->from($data);
         $this->beforeSave();
+        if (!$ignoreValidation) {
+            $this->ensureValid();
+        }
         if ($this->entity->getId()) {
             $this->repository->update($this->entity);
             $this->dispatchEvent('updated', UpdatedEvent::make([
@@ -159,6 +163,19 @@ abstract class AbstractModel
         }
         $this->onSave();
         return $this;
+    }
+
+    protected function ensureValid()
+    {
+        $errors = $this->validate();
+        if (count($errors)) {
+            throw new InvalidEntityException($this->entity, $errors);
+        }
+    }
+
+    public function validate(): ConstraintViolationListInterface
+    {
+        return $this->validator->validate($this->entity);
     }
 
     protected function beforeSave()
