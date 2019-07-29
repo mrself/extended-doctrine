@@ -25,10 +25,14 @@ class ModelTestCase extends TestCase
                 ValidatorInterface::class => Validation::createValidator(),
                 EventDispatcherInterface::class => new EventDispatcher(),
                 Slugify::class => new Slugify(),
-                EntityManager::class => $this->createMock(EntityManager::class)
+                EntityManager::class => $this->createMock(EntityManager::class),
+                'App\\Repository\\ProductRepository' => new ProductRepository()
             ]
         ]);
         ContainerRegistry::add('Mrself\\ExtendedDoctrine', $container);
+        if (!class_exists('App\\Repository\\ProductRepository')) {
+            class_alias(ProductRepository::class, 'App\\Repository\\ProductRepository');
+        }
     }
 
     protected function makeEntity(): EntityInterface
@@ -37,4 +41,9 @@ class ModelTestCase extends TestCase
             use EntityTrait;
         };
     }
+}
+
+class ProductRepository
+{
+
 }

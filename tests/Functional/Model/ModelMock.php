@@ -13,6 +13,16 @@ class ModelMock extends AbstractModel {
 
     protected function getStringNamespace(): string
     {
+        return 'product';
+    }
+
+    protected function getOptionsSelfName(): string
+    {
         return 'model';
+    }
+
+    protected function getClassName()
+    {
+        return 'App\\Model\\ProductModel';
     }
 }

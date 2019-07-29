@@ -36,6 +36,7 @@ abstract class AbstractModel
     protected $entity;
 
     /**
+     * @Option(related=true)
      * @var AbstractRepository
      */
     protected $repository;
@@ -262,5 +263,10 @@ abstract class AbstractModel
         }
 
         // todo: complete implementation
+    }
+
+    protected function getOptionsSelfName(): string
+    {
+        return 'model';
     }
 }
