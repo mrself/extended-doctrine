@@ -246,13 +246,7 @@ abstract class AbstractModel
         if (method_exists($this, 'getEntityClass')) {
             $this->entityClass = $this->getEntityClass();
         } else {
-            $this->entityClass = preg_replace(
-                '/Model/',
-                'Entity',
-                get_class($this),
-                1
-            );
-            $this->entityClass = str_replace('Model', '', $this->entityClass);
+            $this->entityClass = $this->getRelatedClass('entity');
         }
     }
 
