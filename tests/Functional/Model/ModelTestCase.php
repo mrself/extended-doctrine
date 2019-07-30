@@ -6,7 +6,6 @@ use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManager;
 use Mrself\Container\Container;
 use Mrself\Container\Registry\ContainerRegistry;
-use Mrself\ExtendedDoctrine\AbstractModel;
 use Mrself\ExtendedDoctrine\Entity\EntityInterface;
 use Mrself\ExtendedDoctrine\Entity\EntityTrait;
 use PHPUnit\Framework\TestCase;
