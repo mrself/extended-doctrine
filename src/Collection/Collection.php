@@ -19,6 +19,7 @@ class Collection
     protected $repository;
 
     /**
+     * @Option(required=false)
      * @var EntityInterface[]|EntityTrait
      */
     protected $entities;
@@ -29,9 +30,7 @@ class Collection
      */
     public function fromIds(array $ids)
     {
-        $this->from($this->repository->findBy(['id' => $ids]));
-
-        return $this;
+        return static::make($this->repository->findBy(['id' => $ids]));
     }
 
     /**
@@ -40,9 +39,7 @@ class Collection
      */
     public function from(array $entities)
     {
-        $this->entities = $entities;
-
-        return $this;
+        return static::make($entities);
     }
 
     public function getIds()
