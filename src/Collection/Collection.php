@@ -23,14 +23,26 @@ class Collection
      */
     protected $entities;
 
+    /**
+     * @param array $ids
+     * @return static
+     */
     public function fromIds(array $ids)
     {
         $this->from($this->repository->findBy(['id' => $ids]));
+
+        return $this;
     }
 
+    /**
+     * @param array $entities
+     * @return static
+     */
     public function from(array $entities)
     {
         $this->entities = $entities;
+
+        return $this;
     }
 
     public function getIds()
