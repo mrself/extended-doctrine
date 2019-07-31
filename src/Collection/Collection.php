@@ -30,7 +30,7 @@ class Collection
      */
     public function fromIds(array $ids)
     {
-        return static::make($this->repository->findBy(['id' => $ids]));
+        return static::make(['entities' => $this->repository->findBy(['id' => $ids])]);
     }
 
     /**
@@ -39,7 +39,7 @@ class Collection
      */
     public function from(array $entities)
     {
-        return static::make($entities);
+        return static::make(['entities' => $entities]);
     }
 
     public function getIds()
