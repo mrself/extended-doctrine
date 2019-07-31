@@ -80,4 +80,9 @@ class Collection
             return null;
         }
     }
+
+    protected function getOptionsSelfName(): string
+    {
+        return 'collection';
+    }
 }
