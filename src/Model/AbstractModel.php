@@ -292,7 +292,7 @@ abstract class AbstractModel
             return $this->stringNamespace;
         }
 
-        // todo: complete implementation
+        throw new \RuntimeException('Not implemented');
     }
 
     protected function getOptionsSelfName(): string
