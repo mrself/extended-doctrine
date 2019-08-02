@@ -122,6 +122,36 @@ abstract class AbstractModel
         return $this;
     }
 
+    /**
+     * Makes model from entity by a field(s) or from array data
+     * @param string|array $field
+     * @param array $data
+     * @return static
+     * @throws \Mrself\Container\Registry\NotFoundException
+     * @throws \Mrself\Property\EmptyPathException
+     * @throws \Mrself\Property\InvalidSourceException
+     * @throws \Mrself\Property\InvalidTargetException
+     * @throws \Mrself\Property\NonValuePathException
+     * @throws \Mrself\Property\NonexistentKeyException
+     * @throws \Mrself\Sync\ValidationException
+     */
+    public function queryField($field, array $data)
+    {
+        $query = [];
+        foreach ((array) $field as $item) {
+            $query[$item] = $data[$item];
+        }
+        $existingEntity = $this->repository->findOneBy($query);
+        if ($existingEntity) {
+            $this->from($existingEntity)
+                ->from($data);
+        } else {
+            $this->from($data);
+        }
+
+        return $this;
+    }
+
     public function persist()
     {
         $this->repository->persist($this->entity);
