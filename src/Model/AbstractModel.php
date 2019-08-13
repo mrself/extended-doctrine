@@ -152,6 +152,25 @@ abstract class AbstractModel
         return $this;
     }
 
+    /**
+     * @param $field
+     * @param array $data
+     * @return AbstractModel
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Mrself\Container\Registry\NotFoundException
+     * @throws \Mrself\Property\EmptyPathException
+     * @throws \Mrself\Property\InvalidSourceException
+     * @throws \Mrself\Property\InvalidTargetException
+     * @throws \Mrself\Property\NonValuePathException
+     * @throws \Mrself\Property\NonexistentKeyException
+     * @throws \Mrself\Sync\ValidationException
+     */
+    public function saveByField($field, array $data)
+    {
+        return $this->queryField($field, $data)->save();
+    }
+
     public function persist()
     {
         $this->repository->persist($this->entity);
