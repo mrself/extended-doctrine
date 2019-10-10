@@ -65,4 +65,22 @@ trait RepositoryTrait
         $reflection = new \ReflectionClass($class);
         return $reflection->implementsInterface(SluggableInterface::class);
     }
+
+    /**
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function truncate()
+    {
+        $connection = $this->_em->getConnection();
+        $platform = $connection->getDatabasePlatform();
+        $connection->executeQuery('SET FOREIGN_KEY_CHECKS = 0');
+        $query = $platform->getTruncateTableSQL($this->getTableName(), false);
+        $connection->executeUpdate($query);
+        $connection->executeQuery('SET FOREIGN_KEY_CHECKS = 1');
+    }
+
+    protected function getTableName(): string
+    {
+        return $this->getClassMetadata()->getTableName();
+    }
 }
