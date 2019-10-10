@@ -45,11 +45,11 @@ trait EntityTrait {
     public function fromArray(array $array): self
     {
         foreach ($array as $name => $value) {
-            $method = 'set' . $this->inflector
-				->camelize($name, Inflector::DOWNCASE_FIRST_LETTER);
+            $method = 'set' . $this->inflector->camelize($name);
             if (!method_exists($this, $method)) {
                 throw new InvalidArrayNameException($name);
             }
+            $this->$method($value);
         }
         return $this;
 	}
