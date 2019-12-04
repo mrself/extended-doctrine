@@ -86,28 +86,4 @@ class AbstractRepository extends ServiceEntityRepository
             $this->delete($dbEntity);
         }
     }
-
-    /**
-     * Perform operations on in batch on the whole table
-     * @param callable $cb Each entity is passed to callback
-     * @param int $batchSize
-     * @throws MappingException
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function doBatch(callable $cb, $batchSize = 50)
-    {
-        $em = $this->getEntityManager();
-        $query = $this->createQueryBuilder('a')->getQuery();
-        $iterableResult = $query->iterate();
-        foreach ($iterableResult as $index => [$entity]) {
-            $cb($entity);
-            if (($index % $batchSize) === 0) {
-                $em->flush();
-                $em->clear();
-            }
-        }
-        $em->flush();
-        $em->clear();
-    }
 }

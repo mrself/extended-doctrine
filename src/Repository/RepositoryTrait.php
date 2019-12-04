@@ -5,7 +5,6 @@ namespace Mrself\ExtendedDoctrine\Repository;
 use Doctrine\ORM\EntityRepository;
 use Mrself\ExtendedDoctrine\Repository\Exception\InvalidEntitySourceException;
 use Mrself\ExtendedDoctrine\Entity\SluggableInterface;
-use Mrself\ExtendedDoctrine\Entity\SluggableTrait;
 
 /**
  * @mixin EntityRepository
@@ -82,5 +81,18 @@ trait RepositoryTrait
     protected function getTableName(): string
     {
         return $this->getClassMetadata()->getTableName();
+    }
+
+    /**
+     * Perform operations on in batch on the whole table
+     * @param array $options
+     * @throws \Doctrine\Common\Persistence\Mapping\MappingException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function doBatch(array $options)
+    {
+        $options['createQueryBuilder'] = [$this, 'createQueryBuilder'];
+        BatchQuery::make($options)->run();
     }
 }
