@@ -3,6 +3,7 @@
 namespace Mrself\ExtendedDoctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Mrself\ExtendedDoctrine\Repository\Exception\InvalidEntitySourceException;
 use Mrself\ExtendedDoctrine\Entity\SluggableInterface;
 
@@ -94,5 +95,10 @@ trait RepositoryTrait
     {
         $options['createQueryBuilder'] = [$this, 'createQueryBuilder'];
         BatchQuery::make($options)->run();
+    }
+
+    public function getResult(QueryBuilder $qb): array
+    {
+        return $qb->getQuery()->getResult();
     }
 }
