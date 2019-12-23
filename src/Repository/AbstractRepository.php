@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\Mapping\MappingException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\QueryBuilder;
 use Mrself\ExtendedDoctrine\Entity\EntityInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -85,5 +86,10 @@ class AbstractRepository extends ServiceEntityRepository
         if ($dbEntity) {
             $this->delete($dbEntity);
         }
+    }
+
+    public function getResult(QueryBuilder $qb): array
+    {
+        return $qb->getQuery()->getResult();
     }
 }
