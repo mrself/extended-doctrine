@@ -62,10 +62,7 @@ class BatchQuery
             $this->runCallback($index, $result);
         }
 
-        if ($this->flush) {
-            $this->em->flush();
-        }
-        $this->em->clear();
+        $this->clearAndFlush();
     }
 
     /**
@@ -80,11 +77,21 @@ class BatchQuery
         call_user_func($this->callback, reset($result));
         if (($index % $this->batchSize) === 0) {
 
-            if ($this->flush) {
-                $this->em->flush();
-            }
-            $this->em->clear();
+            $this->clearAndFlush();
         }
+    }
+
+    /**
+     * @throws \Doctrine\Common\Persistence\Mapping\MappingException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    private function clearAndFlush()
+    {
+        if ($this->flush) {
+            $this->em->flush();
+        }
+        $this->em->clear();
     }
 
     private function defineQuery()
