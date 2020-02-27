@@ -101,4 +101,9 @@ trait RepositoryTrait
     {
         return $qb->getQuery()->getResult();
     }
+
+    public function startWhere($qb): WhereBuilder
+    {
+        return WhereBuilder::makeFromQueryBuilder($qb);
+    }
 }
