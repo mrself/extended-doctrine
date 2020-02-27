@@ -34,6 +34,12 @@ class BatchQuery
      * @Option(required=false)
      * @var array|callable
      */
+    private $clearCallback;
+
+    /**
+     * @Option(required=false)
+     * @var array|callable
+     */
     private $createQueryBuilder;
 
     /**
@@ -91,7 +97,12 @@ class BatchQuery
         if ($this->flush) {
             $this->em->flush();
         }
-        $this->em->clear();
+
+        if ($this->clearCallback) {
+            call_user_func($this->clearCallback, $this->em);
+        } else {
+            $this->em->clear();
+        }
     }
 
     private function defineQuery()
