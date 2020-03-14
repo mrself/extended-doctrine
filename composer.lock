@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a84dc1bbcd20dd82f8bf971cad837e2",
+    "content-hash": "03372db75bc0e2efdcee1ede95b64cf5",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -1339,16 +1339,16 @@
         },
         {
             "name": "mrself/options",
-            "version": "v2.14.1",
+            "version": "v2.15.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-options.git",
-                "reference": "4b93d0d057e3b6895b70ff62fdb9325bd24c7434"
+                "reference": "745b20342ebb36a467eaf497cc9e2c95580fcd25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-options/zipball/4b93d0d057e3b6895b70ff62fdb9325bd24c7434",
-                "reference": "4b93d0d057e3b6895b70ff62fdb9325bd24c7434",
+                "url": "https://api.github.com/repos/mrself/php-options/zipball/745b20342ebb36a467eaf497cc9e2c95580fcd25",
+                "reference": "745b20342ebb36a467eaf497cc9e2c95580fcd25",
                 "shasum": ""
             },
             "require": {
@@ -1369,7 +1369,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-07-29T14:42:21+00:00"
+            "time": "2020-03-14T14:22:48+00:00"
         },
         {
             "name": "mrself/property",
