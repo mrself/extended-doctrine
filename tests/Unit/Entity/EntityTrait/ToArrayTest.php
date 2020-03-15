@@ -139,6 +139,11 @@ class ToArrayTest extends TestCase
 
             protected $field;
 
+            protected function getUseSync(): bool
+            {
+                return true;
+            }
+
             public function getField()
             {
                 return 'value';

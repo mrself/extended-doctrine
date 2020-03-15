@@ -3,12 +3,25 @@
 namespace Mrself\ExtendedDoctrine\Entity;
 
 
+use Mrself\Property\Property;
+use Mrself\Util\ArrayUtil;
+
 class EntityUtil
 {
     /**
      * @var array
      */
     protected static $camelCache = [];
+
+    /**
+     * @var Property
+     */
+    protected static $property;
+
+    public static function register()
+    {
+        static::$property = Property::make();
+    }
 
     public static function fromArray($entity, array $array)
     {
@@ -42,5 +55,21 @@ class EntityUtil
         $result = str_replace('_', '', ucwords($name, '_'));
         static::$camelCache[$name] = $result;
         return $result;
+    }
+
+    /**
+     * @param $entity
+     * @param array $keys
+     * @return string[]
+     * @throws \Mrself\Property\EmptyPathException
+     * @throws \Mrself\Property\InvalidSourceException
+     */
+    public static function toArray($entity, array $keys = []): array
+    {
+        $array = [];
+        foreach ($keys as $key) {
+            $array[$key] = static::$property->get($entity, $key);
+        }
+        return $array;
     }
 }

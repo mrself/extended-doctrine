@@ -13,7 +13,9 @@ use Symfony\Component\Serializer\Serializer;
 
 trait EntityTrait {
 
-    use SyncTrait;
+    use SyncTrait {
+        toArray as parentToArray;
+    }
 
 	protected $id;
 
@@ -52,6 +54,20 @@ trait EntityTrait {
         return (new static())->fromArray($array);
     }
 
+    public function toArray(array $keys = null): array
+    {
+        if ($this->getUseSync()) {
+            return $this->parentToArray($keys);
+        }
+
+        return EntityUtil::toArray($this, $this->getExportKeys($keys));
+    }
+
+    protected function getUseSync(): bool
+    {
+        return false;
+    }
+
     /**
      * Set associations of 'OneToMany' and "ManyToMany' relations
      * @param null|array $associations Array of associations or null
@@ -78,7 +94,8 @@ trait EntityTrait {
         return array_merge($this->getSerializerIgnoredAttributes(), [
             'serializerIgnoredAttributes',
             'entityOptions',
-            'inflector'
+            'inflector',
+            'useSync'
         ]);
     }
 
