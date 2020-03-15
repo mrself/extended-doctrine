@@ -18,6 +18,6 @@ class ToIdsTest extends TestCase
         };
         $options = ['entities' => [$entity], '.silent' => true];
         $ids = Collection::make($options)->toIds();
-        $this->assertArraySubset($ids, [1]);
+        $this->assertEquals($ids, [1]);
     }
 }
