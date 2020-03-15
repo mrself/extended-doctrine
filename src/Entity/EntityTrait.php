@@ -20,18 +20,12 @@ trait EntityTrait {
 	protected $id;
 
     /**
-     * @var Inflector
-     */
-	protected $inflector;
-
-    /**
      * @var array
      */
 	protected $serializerIgnoredAttributes = [];
 
 	protected function entityConstruct()
     {
-        $this->inflector = Inflector::get();
     }
 
     public function getId()
