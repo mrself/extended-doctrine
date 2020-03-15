@@ -13,7 +13,9 @@ use Symfony\Component\Serializer\Serializer;
 
 trait EntityTrait {
 
-    use SyncTrait;
+    use SyncTrait {
+        toArray as parentToArray;
+    }
 
 	protected $id;
 
@@ -44,19 +46,26 @@ trait EntityTrait {
      */
     public function fromArray(array $array): self
     {
-        foreach ($array as $name => $value) {
-            $method = 'set' . $this->inflector->camelize($name);
-            if (!method_exists($this, $method)) {
-                throw new InvalidArrayNameException($name);
-            }
-            $this->$method($value);
-        }
-        return $this;
+        return EntityUtil::fromArray($this, $array);
 	}
 
 	public static function sfromArray(array $array): self
     {
         return (new static())->fromArray($array);
+    }
+
+    public function toArray(array $keys = null): array
+    {
+        if ($this->getUseSync()) {
+            return $this->parentToArray($keys);
+        }
+
+        return EntityUtil::toArray($this, $this->getExportKeys($keys));
+    }
+
+    protected function getUseSync(): bool
+    {
+        return false;
     }
 
     /**
@@ -85,7 +94,8 @@ trait EntityTrait {
         return array_merge($this->getSerializerIgnoredAttributes(), [
             'serializerIgnoredAttributes',
             'entityOptions',
-            'inflector'
+            'inflector',
+            'useSync'
         ]);
     }
 

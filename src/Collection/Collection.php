@@ -33,6 +33,18 @@ class Collection
         return static::make(['entities' => $this->repository->findBy(['id' => $ids])]);
     }
 
+    public static function sToIds(array $categories)
+    {
+        return static::make(['entities' => $categories])->toIds();
+    }
+
+    public function toIds()
+    {
+        return array_map(function (EntityInterface $entity) {
+            return $entity->getId();
+        }, $this->entities);
+    }
+
     /**
      * @param array $entities
      * @return static
