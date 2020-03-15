@@ -29,4 +29,27 @@ class FromArrayTest extends TestCase
         ]);
         $this->assertEquals('value', $entity->value);
     }
+
+    public function testItAddPropertyFromArray()
+    {
+        $entity = new class {
+            use EntityTrait;
+
+            public $value;
+
+            public function __construct()
+            {
+                $this->entityConstruct();
+            }
+
+            public function addField(string $value)
+            {
+                $this->value = $value;
+            }
+        };
+        $entity->fromArray([
+            'field' => 'value'
+        ]);
+        $this->assertEquals('value', $entity->value);
+    }
 }
