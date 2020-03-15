@@ -4,34 +4,25 @@ namespace Mrself\ExtendedDoctrine;
 
 use ICanBoogie\Inflector;
 use Mrself\Container\Container;
-use Mrself\Container\Registry\ContainerRegistry;
+use Mrself\Container\ServiceProvider;
 use Mrself\ExtendedDoctrine\Entity\EntityUtil;
 use Mrself\Property\PropertyProvider;
 
-class DoctrineProvider
+class DoctrineProvider extends ServiceProvider
 {
-    protected static $isRegistered = false;
-
-    public function register(bool $force = false)
+    protected function getContainer(): Container
     {
-        if (static::$isRegistered && !$force) {
-            return;
-        }
-
         $container = Container::make([
             'fallbackContainers' => ['App']
         ]);
-        ContainerRegistry::add('Mrself\\ExtendedDoctrine', $container);
         $container->set(Inflector::class, Inflector::get());
-
         PropertyProvider::make()->register();
         EntityUtil::register();
-
-        static::$isRegistered = true;
+        return $container;
     }
 
-    public function forceRegister()
+    protected function getNamespace(): string
     {
-        $this->register(true);
+        return 'Mrself\\ExtendedDoctrine';
     }
 }

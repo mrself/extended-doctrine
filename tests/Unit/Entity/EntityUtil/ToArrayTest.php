@@ -31,6 +31,6 @@ class ToArrayTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        DoctrineProvider::register();
+        DoctrineProvider::make()->register();
     }
 }
