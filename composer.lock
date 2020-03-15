@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b64684d976672195fadd534917c66e8",
+    "content-hash": "b19ce5bbbb914861d6c8179a9d9a0eb8",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -1247,16 +1247,16 @@
         },
         {
             "name": "mrself/container",
-            "version": "v1.8.0",
+            "version": "v1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-container.git",
-                "reference": "0b5d2d8f4edb1c1632d3edaa09e0fe300b3d86bc"
+                "reference": "ebf180d1fe4c38e08aaad31b879e983249cb392b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-container/zipball/0b5d2d8f4edb1c1632d3edaa09e0fe300b3d86bc",
-                "reference": "0b5d2d8f4edb1c1632d3edaa09e0fe300b3d86bc",
+                "url": "https://api.github.com/repos/mrself/php-container/zipball/ebf180d1fe4c38e08aaad31b879e983249cb392b",
+                "reference": "ebf180d1fe4c38e08aaad31b879e983249cb392b",
                 "shasum": ""
             },
             "require": {
@@ -1274,7 +1274,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2020-03-15T12:22:43+00:00"
+            "time": "2020-03-15T14:59:58+00:00"
         },
         {
             "name": "mrself/data-transformers",
@@ -1373,22 +1373,22 @@
         },
         {
             "name": "mrself/property",
-            "version": "v1.5.1",
+            "version": "v1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-property.git",
-                "reference": "d6b4dfa0af0f67fc4dd0db3f1bc1b226b225c48a"
+                "reference": "7f4a512ff20e43894cde935a9b8e55787bc07d46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-property/zipball/d6b4dfa0af0f67fc4dd0db3f1bc1b226b225c48a",
-                "reference": "d6b4dfa0af0f67fc4dd0db3f1bc1b226b225c48a",
+                "url": "https://api.github.com/repos/mrself/php-property/zipball/7f4a512ff20e43894cde935a9b8e55787bc07d46",
+                "reference": "7f4a512ff20e43894cde935a9b8e55787bc07d46",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "icanboogie/inflector": "^1.4",
-                "mrself/container": "^1.8",
+                "mrself/container": "^1.9",
                 "mrself/data-transformers": "^1.0",
                 "mrself/options": "^2.15.2",
                 "php": "^7.2"
@@ -1404,7 +1404,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2020-03-15T13:40:14+00:00"
+            "time": "2020-03-15T15:15:42+00:00"
         },
         {
             "name": "mrself/sync",

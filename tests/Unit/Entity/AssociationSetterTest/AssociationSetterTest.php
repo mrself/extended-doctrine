@@ -524,7 +524,7 @@ class AssociationSetterTest extends TestCase
     {
         parent::setUp();
         ContainerRegistry::reset();
-        (new DoctrineProvider())->forceRegister();
+        DoctrineProvider::make()->register();
         $em = $this->createMock(EntityManager::class);
         ContainerRegistry::get('Mrself\\ExtendedDoctrine')
             ->set(EntityManager::class, $em);
