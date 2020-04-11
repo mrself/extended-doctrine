@@ -3,8 +3,10 @@
 namespace Mrself\ExtendedDoctrine\Repository;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Internal\Hydration\IterableResult;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Mrself\ExtendedDoctrine\ExtendedDoctrineException;
 use Mrself\Options\Annotation\Option;
 use Mrself\Options\WithOptionsTrait;
 
@@ -49,10 +51,16 @@ class BatchQuery
     private $em;
 
     /**
-     * @Option()
+     * @Option(required=false)
      * @var array|callable
      */
     private $callback;
+
+    /**
+     * @Option(required=false)
+     * @var array|callable
+     */
+    private $batchCallback;
 
     /**
      * @throws \Doctrine\Common\Persistence\Mapping\MappingException
@@ -64,11 +72,44 @@ class BatchQuery
         $this->defineQuery();
 
         $iterableResult = $this->query->iterate();
-        foreach ($iterableResult as $index => $result) {
-            $this->runCallback($index, $result);
-        }
-
+        $this->passResultToCallback($iterableResult);
         $this->clearAndFlush();
+    }
+
+    protected function passResultToCallback(IterableResult $result)
+    {
+        if ($this->callback) {
+            $this->execCallbackForEachEntity($result);
+        } else {
+            $this->execCallbackForBatch($result);
+        }
+    }
+
+    protected function execCallbackForBatch(IterableResult $result)
+    {
+        $batchResult = [];
+        foreach ($result as $index => $item) {
+            $index++;
+            $batchResult[] = reset($item);
+
+            if (($index % $this->batchSize) === 0) {
+                call_user_func($this->batchCallback, $batchResult);
+                $batchResult = [];
+            }
+        }
+    }
+
+    /**
+     * @param IterableResult $result
+     * @throws \Doctrine\Common\Persistence\Mapping\MappingException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    protected function execCallbackForEachEntity(IterableResult $result)
+    {
+        foreach ($result as $index => $item) {
+            $this->execCallbackForEntity($index, $item);
+        }
     }
 
     /**
@@ -78,7 +119,7 @@ class BatchQuery
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    private function runCallback(int $index, array $result)
+    private function execCallbackForEntity(int $index, array $result)
     {
         call_user_func($this->callback, reset($result));
         if (($index % $this->batchSize) === 0) {
@@ -112,5 +153,19 @@ class BatchQuery
             $qb = call_user_func($this->createQueryBuilder, 'a');
             $this->query = $qb->getQuery();
         }
+    }
+
+    protected function onInit()
+    {
+        $this->assertCallback();
+    }
+
+    private function assertCallback()
+    {
+        if ($this->callback || $this->batchCallback) {
+            return;
+        }
+
+        throw new ExtendedDoctrineException('No callback provided for BatchQuery');
     }
 }
