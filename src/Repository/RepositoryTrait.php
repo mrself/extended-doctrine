@@ -41,6 +41,34 @@ trait RepositoryTrait
         return $source instanceof $class;
     }
 
+    public function fromIdOrEntity($source)
+    {
+        if ($this->isEntity($source)) {
+            return $source;
+        }
+
+        return $this->find($source);
+    }
+
+    public function getByIdOrEntity($source)
+    {
+        if ($this->isEntity($source)) {
+            return $source;
+        }
+
+        return $this->get($source);
+    }
+
+    public function get($id)
+    {
+        $entity = $this->find($id);
+        if ($entity) {
+            return $entity;
+        }
+
+        throw new \RuntimeException('Can not find an entity by id: ' . $id);
+    }
+
     /**
      * @param $id
      * @return object|null
