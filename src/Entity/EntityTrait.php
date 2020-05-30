@@ -3,7 +3,6 @@
 namespace Mrself\ExtendedDoctrine\Entity;
 
 use Mrself\ExtendedDoctrine\Entity\AssociationSetter\AssociationSetter;
-use ICanBoogie\Inflector;
 use Mrself\Sync\SyncTrait;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
