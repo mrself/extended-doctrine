@@ -74,7 +74,7 @@ class FixtureCreator
     private function formatValue(string $key, $value)
     {
         if (is_array($value)) {
-            $this->processArrayValue($key, $value);
+            return $this->processArrayValue($key, $value);
         }
 
         return $value;
