@@ -13,6 +13,11 @@ use PHPUnit\Framework\TestCase;
 
 class FixtureFactoryTest extends TestCase
 {
+    /**
+     * @var EntityManager|\PHPUnit\Framework\MockObject\MockObject
+     */
+    private $em;
+
     public function testOk()
     {
         $instance = new FixtureFactory();
@@ -43,14 +48,37 @@ class FixtureFactoryTest extends TestCase
         $this->assertEquals(2, $fixture->getA());
     }
 
+    public function testCreateNestedByEmptyArray()
+    {
+        $this->em
+            ->expects($this->once())
+            ->method('getClassMetadata')
+            ->willReturn(new class {
+                public function getFieldMapping()
+                {
+                    return ['type' => FixtureA::class];
+                }
+            });
+
+        $instance = new FixtureFactory();
+        $instance->setProviders([FixtureProvider::class, FixtureAProvider::class]);
+        $instance->init();
+
+        /** @var Fixture $fixture */
+        $fixture = $instance->create(Fixture::class, [
+            'a' => []
+        ]);
+        $this->assertEquals(3, $fixture->getA()->getB());
+    }
+
     protected function setUp()
     {
         parent::setUp();
         ContainerRegistry::reset();
         DoctrineProvider::make()->register();
-        $em = $this->createMock(EntityManager::class);
+        $this->em = $this->createMock(EntityManager::class);
         ContainerRegistry::get('Mrself\\ExtendedDoctrine')
-            ->set(EntityManager::class, $em);
+            ->set(EntityManager::class, $this->em);
     }
 }
 
@@ -59,6 +87,9 @@ class Fixture implements EntityInterface
 {
     use EntityTrait;
 
+    /**
+     * @var FixtureA
+     */
     private $a;
 
     public function setA($value)
@@ -69,6 +100,41 @@ class Fixture implements EntityInterface
     public function getA()
     {
         return $this->a;
+    }
+}
+
+class FixtureA implements EntityInterface
+{
+    use EntityTrait;
+
+    /**
+     * @var FixtureA
+     */
+    private $b;
+
+    public function setB($value)
+    {
+        $this->b = $value;
+    }
+
+    public function getB()
+    {
+        return $this->b;
+    }
+}
+
+class FixtureAProvider implements FixtureDataProviderInterface
+{
+    public function getDefaults(): array
+    {
+        return [
+            'b' => 3
+        ];
+    }
+
+    public static function getClass(): string
+    {
+        return FixtureA::class;
     }
 }
 
