@@ -6,6 +6,7 @@ use ICanBoogie\Inflector;
 use Mrself\Container\Container;
 use Mrself\Container\ServiceProvider;
 use Mrself\ExtendedDoctrine\Entity\EntityUtil;
+use Mrself\ExtendedDoctrine\Metadata\Property\TypeDefiner;
 use Mrself\Property\PropertyProvider;
 
 class DoctrineProvider extends ServiceProvider
@@ -16,6 +17,7 @@ class DoctrineProvider extends ServiceProvider
             'fallbackContainers' => ['App']
         ]);
         $container->set(Inflector::class, Inflector::get());
+        $container->setMaker(TypeDefiner::class);
         PropertyProvider::make()->register();
         EntityUtil::register();
         return $container;
