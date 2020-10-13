@@ -74,14 +74,14 @@ class Fixture implements EntityInterface
 
 class FixtureProvider implements FixtureDataProviderInterface
 {
-    public function getDefaults()
+    public function getDefaults(): array
     {
         return [
             'a' => 1
         ];
     }
 
-    public static function getClass()
+    public static function getClass(): string
     {
         return Fixture::class;
     }
