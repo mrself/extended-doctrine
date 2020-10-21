@@ -25,16 +25,24 @@ class FixtureFactory
 
     public function create(string $class, array $source): EntityInterface
     {
-        $provider = $this->getProvider($class);
-
         return FixtureCreator::make([
-            'defaults' => $provider->getDefaults(),
+            'defaults' => $this->getDefaults($class),
             'source' => $source,
             'class' => $class,
             'nestedCallback' => function (string $class, array $source) {
                 return $this->create($class, $source);
             }
         ])->create();
+    }
+
+    private function getDefaults(string $class): array
+    {
+        $provider = $this->getProvider($class);
+        if ($provider) {
+            return $provider->getDefaults();
+        }
+
+        return [];
     }
 
     /**
@@ -59,9 +67,9 @@ class FixtureFactory
         }
     }
 
-    private function getProvider(string $class): FixtureDataProviderInterface
+    private function getProvider(string $class): ?FixtureDataProviderInterface
     {
-        $providerClass = $this->indexedProviders[$class];
-        return new $providerClass;
+        $providerClass = $this->indexedProviders[$class] ?? null;
+        return $providerClass ? new $providerClass : null;
     }
 }
