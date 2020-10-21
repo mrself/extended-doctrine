@@ -80,6 +80,16 @@ class FixtureFactoryTest extends TestCase
         $this->assertEquals(2, $fixture->getA());
     }
 
+    public function testWithEmptySourceAndNoProvider()
+    {
+        $instance = new FixtureFactory();
+        $instance->setProviders([FixtureProvider::class]);
+        $instance->init();
+        /** @var Fixture $fixture */
+        $fixture = $instance->create(Fixture::class);
+        $this->assertEquals(1, $fixture->getA());
+    }
+
     protected function setUp()
     {
         parent::setUp();

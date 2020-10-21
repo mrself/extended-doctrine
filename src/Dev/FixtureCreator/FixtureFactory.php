@@ -23,7 +23,7 @@ class FixtureFactory
         $this->indexProviders();
     }
 
-    public function create(string $class, array $source): EntityInterface
+    public function create(string $class, array $source = []): EntityInterface
     {
         return FixtureCreator::make([
             'defaults' => $this->getDefaults($class),
