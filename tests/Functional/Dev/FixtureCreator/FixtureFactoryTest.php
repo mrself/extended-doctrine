@@ -1,0 +1,173 @@
+<?php declare(strict_types=1);
+
+namespace Mrself\ExtendedDoctrine\Tests\Functional\Dev\FixtureCreator;
+
+use Doctrine\ORM\EntityManager;
+use Mrself\Container\Registry\ContainerRegistry;
+use Mrself\ExtendedDoctrine\Dev\FixtureCreator\FixtureDataProviderInterface;
+use Mrself\ExtendedDoctrine\Dev\FixtureCreator\FixtureFactory;
+use Mrself\ExtendedDoctrine\DoctrineProvider;
+use Mrself\ExtendedDoctrine\Entity\EntityInterface;
+use Mrself\ExtendedDoctrine\Entity\EntityTrait;
+use PHPUnit\Framework\TestCase;
+
+class FixtureFactoryTest extends TestCase
+{
+    /**
+     * @var EntityManager|\PHPUnit\Framework\MockObject\MockObject
+     */
+    private $em;
+
+    public function testOk()
+    {
+        $instance = new FixtureFactory();
+        $instance->addProvider(FixtureProvider::class);
+        $instance->init();
+        /** @var Fixture $fixture */
+        $fixture = $instance->create(Fixture::class, []);
+        $this->assertEquals(1, $fixture->getA());
+    }
+
+    public function testItWorksViaSetProviders()
+    {
+        $instance = new FixtureFactory();
+        $instance->setProviders([FixtureProvider::class]);
+        $instance->init();
+        /** @var Fixture $fixture */
+        $fixture = $instance->create(Fixture::class, []);
+        $this->assertEquals(1, $fixture->getA());
+    }
+
+    public function testWithPassedSource()
+    {
+        $instance = new FixtureFactory();
+        $instance->setProviders([FixtureProvider::class]);
+        $instance->init();
+        /** @var Fixture $fixture */
+        $fixture = $instance->create(Fixture::class, ['a' => 2]);
+        $this->assertEquals(2, $fixture->getA());
+    }
+
+    public function testCreateNestedByEmptyArray()
+    {
+        $this->em
+            ->expects($this->once())
+            ->method('getClassMetadata')
+            ->willReturn(new class {
+                public function getFieldMapping()
+                {
+                    return ['type' => FixtureA::class];
+                }
+            });
+
+        $instance = new FixtureFactory();
+        $instance->setProviders([FixtureProvider::class, FixtureAProvider::class]);
+        $instance->init();
+
+        /** @var Fixture $fixture */
+        $fixture = $instance->create(Fixture::class, [
+            'a' => []
+        ]);
+        $this->assertEquals(3, $fixture->getA()->getB());
+    }
+
+    public function testCreateWhenThereIsNoProvider()
+    {
+        $instance = new FixtureFactory();
+        $instance->init();
+        /** @var Fixture $fixture */
+        $fixture = $instance->create(Fixture::class, ['a' => 2]);
+        $this->assertEquals(2, $fixture->getA());
+    }
+
+    public function testWithEmptySourceAndNoProvider()
+    {
+        $instance = new FixtureFactory();
+        $instance->setProviders([FixtureProvider::class]);
+        $instance->init();
+        /** @var Fixture $fixture */
+        $fixture = $instance->create(Fixture::class);
+        $this->assertEquals(1, $fixture->getA());
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        ContainerRegistry::reset();
+        DoctrineProvider::make()->register();
+        $this->em = $this->createMock(EntityManager::class);
+        ContainerRegistry::get('Mrself\\ExtendedDoctrine')
+            ->set(EntityManager::class, $this->em);
+    }
+}
+
+
+class Fixture implements EntityInterface
+{
+    use EntityTrait;
+
+    /**
+     * @var FixtureA
+     */
+    private $a;
+
+    public function setA($value)
+    {
+        $this->a = $value;
+    }
+
+    public function getA()
+    {
+        return $this->a;
+    }
+}
+
+class FixtureA implements EntityInterface
+{
+    use EntityTrait;
+
+    /**
+     * @var FixtureA
+     */
+    private $b;
+
+    public function setB($value)
+    {
+        $this->b = $value;
+    }
+
+    public function getB()
+    {
+        return $this->b;
+    }
+}
+
+class FixtureAProvider implements FixtureDataProviderInterface
+{
+    public function getDefaults(): array
+    {
+        return [
+            'b' => 3
+        ];
+    }
+
+    public static function getClass(): string
+    {
+        return FixtureA::class;
+    }
+}
+
+class FixtureProvider implements FixtureDataProviderInterface
+{
+    public function getDefaults(): array
+    {
+        return [
+            'a' => 1
+        ];
+    }
+
+    public static function getClass(): string
+    {
+        return Fixture::class;
+    }
+}
