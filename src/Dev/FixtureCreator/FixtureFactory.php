@@ -18,6 +18,19 @@ class FixtureFactory
      */
     private $indexedProviders = [];
 
+    protected function __construct()
+    {
+    }
+
+    public static function make(array $options = [])
+    {
+        $options = $options + ['providers' => []];
+        $instance = new static();
+        $instance->setProviders($options['providers']);
+        $instance->init();
+        return $instance;
+    }
+
     public function init()
     {
         $this->indexProviders();
