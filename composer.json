@@ -27,7 +27,7 @@
     "doctrine/doctrine-bundle": "^1.11",
     "mrself/property": "^1.5.2",
     "mrself/container": "^1.11",
-    "symfony/cache": "^4.3.9",
+    "symfony/cache": "^4.2",
     "symfony/var-exporter": "^4.3.8"
   },
   "require-dev": {
