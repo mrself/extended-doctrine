@@ -18,33 +18,36 @@ class FixtureFactoryTest extends TestCase
      */
     private $em;
 
+    /**
+     * @var FixtureFactory
+     */
+    private $factory;
+
     public function testOk()
     {
-        $instance = new FixtureFactory();
-        $instance->addProvider(FixtureProvider::class);
-        $instance->init();
+        $factory = FixtureFactory::make(['providers' => [FixtureProvider::class]]);
         /** @var Fixture $fixture */
-        $fixture = $instance->create(Fixture::class, []);
+        $fixture = $factory->create(Fixture::class, []);
         $this->assertEquals(1, $fixture->getA());
     }
 
     public function testItWorksViaSetProviders()
     {
-        $instance = new FixtureFactory();
-        $instance->setProviders([FixtureProvider::class]);
-        $instance->init();
+        $factory = FixtureFactory::make([
+            'providers' => [FixtureProvider::class]
+        ]);
         /** @var Fixture $fixture */
-        $fixture = $instance->create(Fixture::class, []);
+        $fixture = $factory->create(Fixture::class, []);
         $this->assertEquals(1, $fixture->getA());
     }
 
     public function testWithPassedSource()
     {
-        $instance = new FixtureFactory();
-        $instance->setProviders([FixtureProvider::class]);
-        $instance->init();
+        $factory = FixtureFactory::make([
+            'providers' => [FixtureProvider::class]
+        ]);
         /** @var Fixture $fixture */
-        $fixture = $instance->create(Fixture::class, ['a' => 2]);
+        $fixture = $factory->create(Fixture::class, ['a' => 2]);
         $this->assertEquals(2, $fixture->getA());
     }
 
@@ -60,12 +63,12 @@ class FixtureFactoryTest extends TestCase
                 }
             });
 
-        $instance = new FixtureFactory();
-        $instance->setProviders([FixtureProvider::class, FixtureAProvider::class]);
-        $instance->init();
+        $factory = FixtureFactory::make([
+            'providers' => [FixtureProvider::class, FixtureAProvider::class]
+        ]);
 
         /** @var Fixture $fixture */
-        $fixture = $instance->create(Fixture::class, [
+        $fixture = $factory->create(Fixture::class, [
             'a' => []
         ]);
         $this->assertEquals(3, $fixture->getA()->getB());
@@ -73,20 +76,17 @@ class FixtureFactoryTest extends TestCase
 
     public function testCreateWhenThereIsNoProvider()
     {
-        $instance = new FixtureFactory();
-        $instance->init();
+        $factory = FixtureFactory::make();
         /** @var Fixture $fixture */
-        $fixture = $instance->create(Fixture::class, ['a' => 2]);
+        $fixture = $factory->create(Fixture::class, ['a' => 2]);
         $this->assertEquals(2, $fixture->getA());
     }
 
-    public function testWithEmptySourceAndNoProvider()
+    public function testWithEmptySource()
     {
-        $instance = new FixtureFactory();
-        $instance->setProviders([FixtureProvider::class]);
-        $instance->init();
+        $factory = FixtureFactory::make(['providers' => [FixtureProvider::class]]);
         /** @var Fixture $fixture */
-        $fixture = $instance->create(Fixture::class);
+        $fixture = $factory->create(Fixture::class);
         $this->assertEquals(1, $fixture->getA());
     }
 
