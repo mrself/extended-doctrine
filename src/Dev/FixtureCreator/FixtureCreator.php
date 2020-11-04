@@ -88,11 +88,11 @@ class FixtureCreator
     private function processArrayValue(string $key, array $value)
     {
         $propertyMeta = $this->typeDefiner->define($this->class, $key);
-        if ($propertyMeta['isAssociation']) {
-            return $this->createNestedEntities($propertyMeta['type'], $value);
+        if (ArrayUtil::isAssoc($value)) {
+            return $this->createNested($propertyMeta['type'], $value);
         }
 
-        return $this->createNested($propertyMeta['type'], $value);
+        return $this->createNestedEntities($propertyMeta['type'], $value);
     }
 
     private function createNestedEntities(string $type, $value)
