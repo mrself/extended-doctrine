@@ -74,6 +74,30 @@ class FixtureFactoryTest extends TestCase
         $this->assertEquals(3, $fixture->getA()->getB());
     }
 
+    public function testCreateNestedBySource()
+    {
+        $this->em
+            ->expects($this->once())
+            ->method('getClassMetadata')
+            ->willReturn(new class {
+                public function getFieldMapping()
+                {
+                    return ['type' => FixtureA::class];
+                }
+            });
+
+        $factory = FixtureFactory::make([
+            'providers' => [FixtureProvider::class, FixtureAProvider::class]
+        ]);
+
+        /** @var Fixture $fixture */
+        $fixture = $factory->create(Fixture::class, [
+            'a' => ['bb' => 0]
+        ]);
+        $this->assertEquals(3, $fixture->getA()->getB());
+        $this->assertEquals(0, $fixture->getA()->getBb());
+    }
+
     public function testCreateWhenThereIsNoProvider()
     {
         $factory = FixtureFactory::make();
@@ -131,9 +155,21 @@ class FixtureA implements EntityInterface
      */
     private $b;
 
+    private $bb;
+
     public function setB($value)
     {
         $this->b = $value;
+    }
+
+    public function setBb($value)
+    {
+        $this->bb = $value;
+    }
+
+    public function getBb()
+    {
+        return $this->bb;
     }
 
     public function getB()
