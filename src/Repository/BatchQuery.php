@@ -108,7 +108,9 @@ class BatchQuery
     protected function execCallbackForEachEntity(IterableResult $result)
     {
         foreach ($result as $index => $item) {
-            $this->execCallbackForEntity($index, $item);
+            if ($this->execCallbackForEntity($index, $item) === false) {
+                break;
+            }
         }
     }
 
@@ -121,11 +123,13 @@ class BatchQuery
      */
     private function execCallbackForEntity(int $index, array $result)
     {
-        call_user_func($this->callback, reset($result));
+        $result = call_user_func($this->callback, reset($result));
         if (($index % $this->batchSize) === 0) {
 
             $this->clearAndFlush();
         }
+
+        return $result;
     }
 
     /**
