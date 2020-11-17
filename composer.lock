@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb22a4b940b572ff41a671cd79e79054",
+    "content-hash": "f4b770c20516fd69d68ef7e5ad6e121f",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -1249,29 +1249,33 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "support": {
+                "issues": "https://github.com/mrself/class-helper/issues",
+                "source": "https://github.com/mrself/class-helper/tree/master"
+            },
             "time": "2019-01-07T09:57:54+00:00"
         },
         {
             "name": "mrself/container",
-            "version": "v1.11.0",
+            "version": "v1.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-container.git",
-                "reference": "2f38ca1e3b9685b8173fb18a0132596d3838fa75"
+                "reference": "e4d657b20ec982c46de7853ada67239f3a43fa4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-container/zipball/2f38ca1e3b9685b8173fb18a0132596d3838fa75",
-                "reference": "2f38ca1e3b9685b8173fb18a0132596d3838fa75",
+                "url": "https://api.github.com/repos/mrself/php-container/zipball/e4d657b20ec982c46de7853ada67239f3a43fa4d",
+                "reference": "e4d657b20ec982c46de7853ada67239f3a43fa4d",
                 "shasum": ""
             },
             "require": {
-                "mrself/options": "2.19",
+                "mrself/options": "2.19.2",
                 "php": "^7.2"
             },
             "require-dev": {
                 "phpunit/phpunit": "^7",
-                "symfony/var-dumper": "^4.2"
+                "symfony/var-dumper": "^4.4"
             },
             "type": "library",
             "autoload": {
@@ -1280,30 +1284,34 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2020-10-13T21:20:18+00:00"
+            "support": {
+                "issues": "https://github.com/mrself/php-container/issues",
+                "source": "https://github.com/mrself/php-container/tree/v1.11.1"
+            },
+            "time": "2020-11-17T17:42:42+00:00"
         },
         {
             "name": "mrself/data-transformers",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-data-transformers.git",
-                "reference": "28bdfc0ac228023b6b97d7659567b3c44a46929f"
+                "reference": "a3e489f0c3835b1279f10bb0f7d977c7a2d6a872"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-data-transformers/zipball/28bdfc0ac228023b6b97d7659567b3c44a46929f",
-                "reference": "28bdfc0ac228023b6b97d7659567b3c44a46929f",
+                "url": "https://api.github.com/repos/mrself/php-data-transformers/zipball/a3e489f0c3835b1279f10bb0f7d977c7a2d6a872",
+                "reference": "a3e489f0c3835b1279f10bb0f7d977c7a2d6a872",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "mrself/options": "^2.7",
+                "mrself/options": "^2.19.2",
                 "php": ">=7.2"
             },
             "require-dev": {
                 "phpunit/phpunit": "^7.5",
-                "symfony/var-dumper": "^4.2"
+                "symfony/var-dumper": "^4.4"
             },
             "type": "library",
             "autoload": {
@@ -1312,20 +1320,24 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-06-13T07:27:03+00:00"
+            "support": {
+                "issues": "https://github.com/mrself/php-data-transformers/issues",
+                "source": "https://github.com/mrself/php-data-transformers/tree/v1.1.1"
+            },
+            "time": "2020-11-17T17:57:42+00:00"
         },
         {
             "name": "mrself/namespace",
-            "version": "v1.3.0",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-namespace.git",
-                "reference": "b1299a1de6f2dcf47fd3e56aaf4f1304a5359d32"
+                "reference": "b2dfcfe3b85e6f64a5e623161db8f44bd696c6d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-namespace/zipball/b1299a1de6f2dcf47fd3e56aaf4f1304a5359d32",
-                "reference": "b1299a1de6f2dcf47fd3e56aaf4f1304a5359d32",
+                "url": "https://api.github.com/repos/mrself/php-namespace/zipball/b2dfcfe3b85e6f64a5e623161db8f44bd696c6d7",
+                "reference": "b2dfcfe3b85e6f64a5e623161db8f44bd696c6d7",
                 "shasum": ""
             },
             "require": {
@@ -1341,20 +1353,24 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-02-05T14:26:10+00:00"
+            "support": {
+                "issues": "https://github.com/mrself/php-namespace/issues",
+                "source": "https://github.com/mrself/php-namespace/tree/v1.6.0"
+            },
+            "time": "2019-10-11T13:13:32+00:00"
         },
         {
             "name": "mrself/options",
-            "version": "v2.19.0",
+            "version": "v2.19.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-options.git",
-                "reference": "fe257aeb845d5f5a0a7cc183ca960ba176cb9e85"
+                "reference": "c82ca25131854ea0c478799d19546790d1c52b0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-options/zipball/fe257aeb845d5f5a0a7cc183ca960ba176cb9e85",
-                "reference": "fe257aeb845d5f5a0a7cc183ca960ba176cb9e85",
+                "url": "https://api.github.com/repos/mrself/php-options/zipball/c82ca25131854ea0c478799d19546790d1c52b0c",
+                "reference": "c82ca25131854ea0c478799d19546790d1c52b0c",
                 "shasum": ""
             },
             "require": {
@@ -1363,7 +1379,7 @@
                 "mrself/container": "*",
                 "mrself/util": "^1.5.0",
                 "php-di/phpdoc-reader": "^2.1",
-                "symfony/options-resolver": "^4.2"
+                "symfony/options-resolver": "^4.4"
             },
             "require-dev": {
                 "phpbench/phpbench": "^1.0@dev",
@@ -1377,33 +1393,37 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2020-10-13T20:28:29+00:00"
+            "support": {
+                "issues": "https://github.com/mrself/php-options/issues",
+                "source": "https://github.com/mrself/php-options/tree/v2.19.2"
+            },
+            "time": "2020-11-17T17:27:24+00:00"
         },
         {
             "name": "mrself/property",
-            "version": "v1.6.1",
+            "version": "v1.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-property.git",
-                "reference": "9d0bb1e473faf6b46942772e181e352459e2336b"
+                "reference": "52fbc75391750ff97bb417c56ea7c62d249ff629"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-property/zipball/9d0bb1e473faf6b46942772e181e352459e2336b",
-                "reference": "9d0bb1e473faf6b46942772e181e352459e2336b",
+                "url": "https://api.github.com/repos/mrself/php-property/zipball/52fbc75391750ff97bb417c56ea7c62d249ff629",
+                "reference": "52fbc75391750ff97bb417c56ea7c62d249ff629",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "mrself/container": "^1.9",
-                "mrself/data-transformers": "^1.0",
+                "mrself/data-transformers": "^1.1.1",
                 "mrself/options": "^2.15.2",
                 "mrself/util": "^1.12",
                 "php": "^7.2"
             },
             "require-dev": {
                 "phpunit/phpunit": "^7.5",
-                "symfony/var-dumper": "^4.2"
+                "symfony/var-dumper": "^4.4"
             },
             "type": "library",
             "autoload": {
@@ -1414,22 +1434,22 @@
             "notification-url": "https://packagist.org/downloads/",
             "support": {
                 "issues": "https://github.com/mrself/php-property/issues",
-                "source": "https://github.com/mrself/php-property/tree/v1.6.1"
+                "source": "https://github.com/mrself/php-property/tree/v1.6.4"
             },
-            "time": "2020-11-16T16:21:02+00:00"
+            "time": "2020-11-17T18:00:24+00:00"
         },
         {
             "name": "mrself/sync",
-            "version": "v1.7.1",
+            "version": "v1.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-sync.git",
-                "reference": "d44906af1069933d990082ccb920086040ecc7e7"
+                "reference": "e52e0bea31053eb0c2b4a64ac4042aa082b8f05e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-sync/zipball/d44906af1069933d990082ccb920086040ecc7e7",
-                "reference": "d44906af1069933d990082ccb920086040ecc7e7",
+                "url": "https://api.github.com/repos/mrself/php-sync/zipball/e52e0bea31053eb0c2b4a64ac4042aa082b8f05e",
+                "reference": "e52e0bea31053eb0c2b4a64ac4042aa082b8f05e",
                 "shasum": ""
             },
             "require": {
@@ -1437,13 +1457,13 @@
                 "mrself/options": "^2.15.2",
                 "mrself/property": "^1.6.1",
                 "mrself/util": "^1.12",
-                "symfony/validator": "^4.2"
+                "symfony/validator": "^4.4"
             },
             "require-dev": {
                 "doctrine/annotations": "^1.6",
                 "doctrine/cache": "^1.8",
                 "phpunit/phpunit": "^7.5",
-                "symfony/var-dumper": "^4.2"
+                "symfony/var-dumper": "^4.4"
             },
             "suggest": {
                 "doctrine/annotations": "Requires for annotation metadata for validation",
@@ -1458,22 +1478,22 @@
             "notification-url": "https://packagist.org/downloads/",
             "support": {
                 "issues": "https://github.com/mrself/php-sync/issues",
-                "source": "https://github.com/mrself/php-sync/tree/v1.7.1"
+                "source": "https://github.com/mrself/php-sync/tree/v1.7.2"
             },
-            "time": "2020-11-16T16:35:50+00:00"
+            "time": "2020-11-17T17:53:49+00:00"
         },
         {
             "name": "mrself/util",
-            "version": "v1.12.0",
+            "version": "v1.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-util.git",
-                "reference": "99f56d9989f013a085e646a553e30ab1736a77e9"
+                "reference": "2b0e9e4721a8c7b037c9971b1c80eb971a66803d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-util/zipball/99f56d9989f013a085e646a553e30ab1736a77e9",
-                "reference": "99f56d9989f013a085e646a553e30ab1736a77e9",
+                "url": "https://api.github.com/repos/mrself/php-util/zipball/2b0e9e4721a8c7b037c9971b1c80eb971a66803d",
+                "reference": "2b0e9e4721a8c7b037c9971b1c80eb971a66803d",
                 "shasum": ""
             },
             "require": {
@@ -1484,7 +1504,7 @@
             "require-dev": {
                 "phpbench/phpbench": "@dev",
                 "phpunit/phpunit": "^7.5",
-                "symfony/var-dumper": "^4.2"
+                "symfony/var-dumper": "4.4.*"
             },
             "type": "library",
             "autoload": {
@@ -1495,9 +1515,9 @@
             "notification-url": "https://packagist.org/downloads/",
             "support": {
                 "issues": "https://github.com/mrself/php-util/issues",
-                "source": "https://github.com/mrself/php-util/tree/v1.12.0"
+                "source": "https://github.com/mrself/php-util/tree/v1.12.1"
             },
-            "time": "2020-06-17T05:44:20+00:00"
+            "time": "2020-11-17T17:44:21+00:00"
         },
         {
             "name": "php-di/phpdoc-reader",

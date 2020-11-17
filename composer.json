@@ -25,7 +25,7 @@
     "cocur/slugify": "^3.2",
     "symfony/event-dispatcher": "^4.2",
     "doctrine/doctrine-bundle": "^1.11",
-    "mrself/property": "^1.6.1",
+    "mrself/property": "^1.6.4",
     "mrself/container": "^1.11",
     "symfony/cache": "^4.4",
     "symfony/var-exporter": "^4.4"
