@@ -2,6 +2,8 @@
 
 namespace Mrself\ExtendedDoctrine\Tests\Functional\Dev\FixtureCreator;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
 use Mrself\Container\Registry\ContainerRegistry;
 use Mrself\ExtendedDoctrine\Dev\FixtureCreator\FixtureDataProviderInterface;
@@ -98,6 +100,32 @@ class FixtureFactoryTest extends TestCase
         $this->assertEquals(0, $fixture->getA()->getBb());
     }
 
+    public function testCreateNestedCollectionByArraySource()
+    {
+        $this->em
+            ->expects($this->once())
+            ->method('getClassMetadata')
+            ->willReturn(new class {
+                public function getFieldMapping()
+                {
+                    return ['type' => FixtureA::class];
+                }
+            });
+
+        $factory = FixtureFactory::make([
+            'providers' => [FixtureProvider::class, FixtureAProvider::class]
+        ]);
+
+        /** @var Fixture $fixture */
+        $fixture = $factory->create(Fixture::class, [
+            'collection' => [
+                ['b' => 9]
+            ]
+        ]);
+        $this->assertFalse($fixture->getCollection()->isEmpty());
+        $this->assertEquals(9, $fixture->getCollection()->first()->getB());
+    }
+
     public function testCreateWhenThereIsNoProvider()
     {
         $factory = FixtureFactory::make();
@@ -135,6 +163,16 @@ class Fixture implements EntityInterface
      */
     private $a;
 
+    /**
+     * @var Collection
+     */
+    private $collection;
+
+    public function __construct()
+    {
+        $this->collection = new ArrayCollection();
+    }
+
     public function setA($value)
     {
         $this->a = $value;
@@ -143,6 +181,20 @@ class Fixture implements EntityInterface
     public function getA()
     {
         return $this->a;
+    }
+
+    public function getCollection(): ?Collection
+    {
+        return $this->collection;
+    }
+
+    public function setCollection(array $collection): void
+    {
+        $this->setAssociations(
+            $collection,
+            'a',
+            'collection'
+        );
     }
 }
 
@@ -156,6 +208,8 @@ class FixtureA implements EntityInterface
     private $b;
 
     private $bb;
+
+    private $a;
 
     public function setB($value)
     {
@@ -175,6 +229,16 @@ class FixtureA implements EntityInterface
     public function getB()
     {
         return $this->b;
+    }
+
+    public function setA($a)
+    {
+        $this->a = $a;
+    }
+
+    public function getA()
+    {
+        return $this->a;
     }
 }
 
