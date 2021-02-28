@@ -23,7 +23,7 @@
     "mrself/sync": "^1.7.1",
     "mrself/namespace": "^1.3",
     "cocur/slugify": "^3.2",
-    "symfony/event-dispatcher": "^4.4",
+    "symfony/event-dispatcher": ">=4.4",
     "doctrine/doctrine-bundle": "^1.11",
     "mrself/property": "^1.6.4",
     "mrself/container": "^1.11",
