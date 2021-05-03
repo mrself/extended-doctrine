@@ -126,6 +126,32 @@ class FixtureFactoryTest extends TestCase
         $this->assertEquals(9, $fixture->getCollection()->first()->getB());
     }
 
+    public function testItIsAllowedToPassReadyEntitiesAsNestedAssociations()
+    {
+        $this->em
+            ->expects($this->once())
+            ->method('getClassMetadata')
+            ->willReturn(new class {
+                public function getFieldMapping()
+                {
+                    return ['type' => FixtureA::class];
+                }
+            });
+
+        $factory = FixtureFactory::make([
+            'providers' => [FixtureProvider::class, FixtureAProvider::class]
+        ]);
+
+        /** @var Fixture $fixture */
+        $fixture = $factory->create(Fixture::class, [
+            'collection' => [
+                new FixtureA()
+            ]
+        ]);
+        $this->assertFalse($fixture->getCollection()->isEmpty());
+        $this->assertInstanceOf(FixtureA::class, $fixture->getCollection()->first());
+    }
+
     public function testCreateWhenThereIsNoProvider()
     {
         $factory = FixtureFactory::make();

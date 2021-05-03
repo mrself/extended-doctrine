@@ -99,8 +99,12 @@ class FixtureCreator
 
     private function createNestedEntities(string $type, $value)
     {
-        return ArrayUtil::map($value, function (array $item) use ($type) {
-            return $this->createNested($type, $item);
+        return ArrayUtil::map($value, function ($item) use ($type) {
+            if (is_array($item)) {
+                return $this->createNested($type, $item);
+            }
+
+            return $item;
         });
     }
 }
