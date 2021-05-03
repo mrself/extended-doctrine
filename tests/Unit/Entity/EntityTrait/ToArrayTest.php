@@ -4,9 +4,10 @@ namespace Mrself\ExtendedDoctrine\Tests\Unit\Entity\Entity\EntityTrait;
 
 use Mrself\ExtendedDoctrine\Entity\EntityInterface;
 use Mrself\ExtendedDoctrine\Entity\EntityTrait;
+use Mrself\ExtendedDoctrine\Tests\Functional\Model\ModelTestCase;
 use PHPUnit\Framework\TestCase;
 
-class ToArrayTest extends TestCase
+class ToArrayTest extends ModelTestCase
 {
     public function testItReturnsMapOfPropertiesToValues()
     {
@@ -24,6 +25,11 @@ class ToArrayTest extends TestCase
             function getField1()
             {
                 return $this->field1;
+            }
+
+            public function getOptionsContainerNamespace(): string
+            {
+                return 'Mrself\\ExtendedDoctrine';
             }
         };
         $expected = ['field1' => 'value1', 'id' => 1];
@@ -46,6 +52,11 @@ class ToArrayTest extends TestCase
             function getField1()
             {
                 return $this->field1;
+            }
+
+            public function getOptionsContainerNamespace(): string
+            {
+                return 'Mrself\\ExtendedDoctrine';
             }
         };
         $expected = ['field1' => 'value1'];
@@ -77,6 +88,11 @@ class ToArrayTest extends TestCase
             {
                 return $this->entity2;
             }
+
+            public function getOptionsContainerNamespace(): string
+            {
+                return 'Mrself\\ExtendedDoctrine';
+            }
         };
 
         $entity2 = new class implements EntityInterface {
@@ -89,6 +105,11 @@ class ToArrayTest extends TestCase
             function getField2()
             {
                 return $this->field2;
+            }
+
+            public function getOptionsContainerNamespace(): string
+            {
+                return 'Mrself\\ExtendedDoctrine';
             }
         };
         $entity2->entity1 = $entity1;
@@ -108,6 +129,11 @@ class ToArrayTest extends TestCase
             {
                 return new \DateTime();
             }
+
+            public function getOptionsContainerNamespace(): string
+            {
+                return 'Mrself\\ExtendedDoctrine';
+            }
         };
 
         $array = $entity->toArray();
@@ -126,6 +152,11 @@ class ToArrayTest extends TestCase
             public function getField()
             {
                 return 'value';
+            }
+
+            public function getOptionsContainerNamespace(): string
+            {
+                return 'Mrself\\ExtendedDoctrine';
             }
         };
         $fields = $entity->toArray(['field']);
@@ -147,6 +178,11 @@ class ToArrayTest extends TestCase
             public function getField()
             {
                 return 'value';
+            }
+
+            public function getOptionsContainerNamespace(): string
+            {
+                return 'Mrself\\ExtendedDoctrine';
             }
         };
         $fields = $entity->toArray(['field1' => 'field']);

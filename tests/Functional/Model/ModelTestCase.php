@@ -9,7 +9,9 @@ use Mrself\Container\Registry\ContainerRegistry;
 use Mrself\ExtendedDoctrine\DoctrineProvider;
 use Mrself\ExtendedDoctrine\Entity\EntityInterface;
 use Mrself\ExtendedDoctrine\Entity\EntityTrait;
+use Mrself\ExtendedDoctrine\Entity\EntityUtil;
 use Mrself\Property\PropertyProvider;
+use Mrself\Sync\SyncProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Validator\Validation;
@@ -33,7 +35,12 @@ class ModelTestCase extends TestCase
             ]
         ]);
         ContainerRegistry::add('Mrself\\ExtendedDoctrine', $container);
+
+        SyncProvider::make()->register();
+        $container->addFallbackContainer(ContainerRegistry::get('Mrself\Sync'));
+
         PropertyProvider::make()->register();
+
         if (!class_exists('App\\Repository\\ProductRepository')) {
             class_alias(ProductRepository::class, 'App\\Repository\\ProductRepository');
         }
