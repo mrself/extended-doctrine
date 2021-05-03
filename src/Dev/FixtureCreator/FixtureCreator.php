@@ -4,6 +4,7 @@ namespace Mrself\ExtendedDoctrine\Dev\FixtureCreator;
 
 use Doctrine\ORM\EntityManager;
 use Mrself\ExtendedDoctrine\Entity\EntityInterface;
+use Mrself\ExtendedDoctrine\Entity\EntityUtil;
 use Mrself\ExtendedDoctrine\Metadata\Property\TypeDefiner;
 use Mrself\Options\Annotation\Option;
 use Mrself\Options\WithOptionsTrait;
@@ -59,7 +60,8 @@ class FixtureCreator
 
     private function makeEntity(): EntityInterface
     {
-        return $this->class::sfromArray($this->makeSourceData());
+        $entity = new $this->class;
+        return EntityUtil::fromArray($entity, $this->makeSourceData());
     }
 
     private function makeSourceData(): array
