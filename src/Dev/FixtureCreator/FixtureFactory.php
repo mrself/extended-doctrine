@@ -3,7 +3,6 @@
 namespace Mrself\ExtendedDoctrine\Dev\FixtureCreator;
 
 use Mrself\ExtendedDoctrine\Entity\EntityInterface;
-use Mrself\ExtendedDoctrine\Metadata\Property\TypeDefiner;
 
 class FixtureFactory
 {
