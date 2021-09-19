@@ -2,7 +2,8 @@
 
 namespace Mrself\ExtendedDoctrine;
 
-use ICanBoogie\Inflector;
+use Doctrine\Inflector\Inflector;
+use Doctrine\Inflector\InflectorFactory;
 use Mrself\Container\Container;
 use Mrself\Container\ServiceProvider;
 use Mrself\ExtendedDoctrine\Entity\EntityUtil;
@@ -16,7 +17,7 @@ class DoctrineProvider extends ServiceProvider
         $container = Container::make([
             'fallbackContainers' => ['App']
         ]);
-        $container->set(Inflector::class, Inflector::get());
+        $container->set(Inflector::class, InflectorFactory::create()->build());
         $container->setMaker(TypeDefiner::class);
         PropertyProvider::make()->register();
         EntityUtil::register();

@@ -2,8 +2,8 @@
 
 namespace Mrself\ExtendedDoctrine\Entity\AssociationSetter;
 
+use Doctrine\Inflector\Inflector;
 use Doctrine\ORM\EntityManager;
-use ICanBoogie\Inflector;
 use Mrself\ExtendedDoctrine\Entity\EntityInterface;
 use Mrself\ExtendedDoctrine\Entity\EntityTrait;
 use Mrself\ClassHelper\ClassHelper;
